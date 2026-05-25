@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1100">
+<title>STARFIRE — Traveller Space Combat</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#050510; color:#ccd6f6;
+  font-family:'Courier New',Courier,monospace;
+  display:flex; flex-direction:column; align-items:center;
+  min-height:100vh; padding:10px; user-select:none;
+}
+#header {
+  width:1100px; display:flex; align-items:center;
+  justify-content:space-between; padding:8px 14px;
+  border-bottom:1px solid #1a2040; margin-bottom:8px;
+}
+#logo { font-size:20px; font-weight:bold; color:#64b5f6; letter-spacing:5px; }
+.hstat { font-size:10px; color:#8892b0; text-align:center; }
+.hstat span { display:block; font-size:15px; color:#ccd6f6; font-weight:bold; letter-spacing:1px; }
+#game-container { display:flex; gap:8px; width:1100px; }
+#canvas { border:1px solid #111830; flex-shrink:0; display:block; }
+#sidebar {
+  width:282px; display:flex; flex-direction:column; gap:0;
+  border:1px solid #111830; background:rgba(5,5,18,0.9);
+}
+#log-title {
+  padding:6px 10px; font-size:10px; letter-spacing:2px;
+  color:#8892b0; border-bottom:1px solid #111830;
+}
+#log-entries {
+  flex:1; overflow-y:auto; padding:5px 10px;
+  font-size:11px; line-height:1.7; height:380px;
+}
+.lr  { color:#8892b0; }
+.lh  { color:#ff7043; }
+.lm  { color:#546e7a; }
+.lc  { color:#ff1744; font-weight:bold; }
+.la  { color:#ffd740; }
+.ls  { color:#69f0ae; }
+.lrnd{ color:#64b5f6; font-weight:bold; margin-top:5px;
+       border-top:1px solid #1a2040; padding-top:3px; }
+#hud {
+  width:1100px; display:flex; align-items:stretch;
+  gap:8px; margin-top:8px;
+}
+.ship-panel {
+  flex:1; background:rgba(5,5,18,0.9);
+  border:1px solid #1a2040; padding:10px 14px;
+}
+.sp-player { border-color:#0d47a1; }
+.sp-enemy  { border-color:#b71c1c; }
+.sname { font-size:10px; letter-spacing:2px; margin-bottom:8px; }
+.sp-player .sname { color:#64b5f6; }
+.sp-enemy  .sname { color:#ef5350; }
+.srow {
+  display:flex; justify-content:space-between;
+  font-size:11px; color:#8892b0; margin-bottom:3px;
+}
+.srow span:last-child { color:#ccd6f6; }
+.blabel { font-size:10px; color:#8892b0; margin:6px 0 3px; }
+.bwrap {
+  background:#0a0c1e; border:1px solid #1a2040;
+  height:14px; position:relative; overflow:hidden; margin-bottom:5px;
+}
+.bfill { height:100%; transition:width .4s ease; }
+.bfill.p { background:linear-gradient(90deg,#1565c0,#42a5f5); }
+.bfill.e { background:linear-gradient(90deg,#b71c1c,#ef5350); }
+.bfill.lo { background:linear-gradient(90deg,#e65100,#ff7043); }
+.bfill.cr { background:linear-gradient(90deg,#880e4f,#ff1744); }
+.btext {
+  position:absolute; right:4px; top:0;
+  font-size:10px; line-height:14px; color:rgba(255,255,255,0.6);
+}
+.scrits { font-size:10px; color:#ff7043; min-height:14px; }
+#controls {
+  width:200px; background:rgba(5,5,18,0.9);
+  border:1px solid #1a2040; padding:10px 12px;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:7px;
+}
+.ctitle { font-size:10px; letter-spacing:2px; color:#8892b0; }
+#ctrl-range { font-size:17px; font-weight:bold; color:#64b5f6; letter-spacing:2px; }
+.btnrow { display:flex; gap:6px; }
+button {
+  background:#0d1a33; border:1px solid #1a3060; color:#64b5f6;
+  padding:5px 12px; font-family:'Courier New',monospace;
+  font-size:11px; cursor:pointer; letter-spacing:1px; transition:all .15s;
+}
+button:hover:not(:disabled) { background:#1a2a50; border-color:#64b5f6; }
+button:disabled { opacity:.35; cursor:not-allowed; }
+#speed-btn { font-size:10px; padding:3px 10px; color:#8892b0; border-color:#1a2040; }
+#overlay {
+  position:fixed; inset:0; display:none; align-items:center;
+  justify-content:center; background:rgba(0,0,10,.75); z-index:99;
+}
+#overlay.show { display:flex; }
+#obox { border:2px solid #64b5f6; background:#050510; padding:38px 56px; text-align:center; }
+#otitle { font-size:34px; font-weight:bold; letter-spacing:6px; margin-bottom:10px; }
+#osub { font-size:13px; color:#8892b0; margin-bottom:22px; }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div id="logo">✦ STARFIRE</div>
+  <div class="hstat">ROUND <span id="h-round">—</span></div>
+  <div class="hstat">RANGE <span id="h-range">—</span></div>
+  <div class="hstat">LAST ROLL <span id="h-roll">—</span></div>
+  <div class="hstat">STATUS <span id="h-phase">INITIALISING</span></div>
+</div>
+
+<div id="game-container">
+  <canvas id="canvas" width="810" height="400"></canvas>
+  <div id="sidebar">
+    <div id="log-title">▸ COMBAT LOG</div>
+    <div id="log-entries"></div>
+  </div>
+</div>
+
+<div id="hud">
+  <div class="ship-panel sp-player">
+    <div class="sname" id="p-name">TYPE S SCOUT</div>
+    <div class="srow"><span>ARMOR</span><span id="p-arm">0</span></div>
+    <div class="srow"><span>THRUST</span><span id="p-thr">2</span></div>
+    <div class="srow"><span>GUNNER</span><span id="p-gun">2</span></div>
+    <div class="srow"><span>WEAPON</span><span>Pulse Laser 2D6</span></div>
+    <div class="blabel">HULL INTEGRITY</div>
+    <div class="bwrap"><div class="bfill p" id="p-bar" style="width:100%"></div><div class="btext" id="p-btext">8/8</div></div>
+    <div class="scrits" id="p-crits"></div>
+  </div>
+
+  <div id="controls">
+    <div class="ctitle">RANGE CONTROL</div>
+    <div id="ctrl-range">SHORT</div>
+    <div class="btnrow">
+      <button id="btn-cl" onclick="changeRange(-1)">◀ CLOSE</button>
+      <button id="btn-op" onclick="changeRange(+1)">OPEN ▶</button>
+    </div>
+    <button id="speed-btn" onclick="toggleSpeed()">SPEED: NORMAL</button>
+    <button onclick="restartGame()" style="font-size:10px;padding:3px 10px;color:#8892b0;border-color:#1a2040">RESTART</button>
+  </div>
+
+  <div class="ship-panel sp-enemy">
+    <div class="sname" id="e-name">PATROL CRUISER</div>
+    <div class="srow"><span>ARMOR</span><span id="e-arm">6</span></div>
+    <div class="srow"><span>THRUST</span><span id="e-thr">1</span></div>
+    <div class="srow"><span>GUNNER</span><span id="e-gun">2</span></div>
+    <div class="srow"><span>WEAPON</span><span>Triple Turret 3D6</span></div>
+    <div class="blabel">HULL INTEGRITY</div>
+    <div class="bwrap"><div class="bfill e" id="e-bar" style="width:100%"></div><div class="btext" id="e-btext">20/20</div></div>
+    <div class="scrits" id="e-crits"></div>
+  </div>
+</div>
+
+<div id="overlay">
+  <div id="obox">
+    <div id="otitle">VICTORY</div>
+    <div id="osub">Enemy destroyed.</div>
+    <button onclick="restartGame()">NEW ENGAGEMENT</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ── Constants ───────────────────────────────────────────────────────────────
+const RANGE_NAMES = ['Adjacent','Close','Short','Medium','Long','Very Long'];
+const RANGE_DMS   = [-4, -2, 0, -2, -4, -6];
+const RANGE_GAPS  = [90, 155, 240, 345, 460, 560]; // pixel separation
+
+const CRIT = [
+  null,
+  'Minor damage',
+  'Crew casualty',
+  'Power plant hit',
+  'Fuel leak',
+  'Weapons malfunction',
+  'Drive hit',
+  'Computer damage',
+  'Hull breach',
+  'Multiple crew killed',
+  'Power failure next round',
+  'Drive destroyed',
+  'Catastrophic — DESTROYED'
+];
+
+// ── Ship templates ───────────────────────────────────────────────────────────
+const DEFS = {
+  scout: {
+    id:'scout', name:'Type S Scout', dtons:100,
+    armor:0, hullMax:8, thrustBase:2, gunner:2, pilot:2,
+    weapon:{ name:'Pulse Laser', dc:2, ds:6 },
+    isPlayer:true, color:'#42a5f5', glow:'rgba(30,100,200,.35)',
+  },
+  cruiser: {
+    id:'cruiser', name:'Patrol Cruiser', dtons:400,
+    armor:6, hullMax:20, thrustBase:1, gunner:2, pilot:1,
+    weapon:{ name:'Triple Turret', dc:3, ds:6 },
+    isPlayer:false, color:'#ef5350', glow:'rgba(200,30,30,.35)',
+  }
+};
+
+// ── State ────────────────────────────────────────────────────────────────────
+let S = {};
+let stars = [];
+let floats = [];   // floating text {x,y,vy,text,color,life,maxLife}
+let particles = []; // explosion {x,y,vx,vy,r,color,life,maxLife}
+
+function makeShip(def) {
+  return {
+    ...def,
+    hull: def.hullMax,
+    thrust: def.thrustBase,
+    weaponDM: 0, allDM: 0,
+    noFire: false, doubleDmg: false,
+    criticals: [], alive: true,
+    x: 0, y: 200, tx: 0,
+    laserLife: 0, laserTX: 0, laserTY: 0,
+    hitFlash: 0,
+  };
+}
+
+function initState() {
+  S = {
+    round: 0, rangeBand: 2,
+    fast: false, over: false,
+    player: makeShip(DEFS.scout),
+    enemy:  makeShip(DEFS.cruiser),
+    roundTimer: 0,
+  };
+  placeShips();
+}
+
+function placeShips() {
+  const g = RANGE_GAPS[S.rangeBand];
+  S.player.tx = 405 - g/2;
+  S.enemy.tx  = 405 + g/2;
+  S.player.x  = S.player.tx;
+  S.enemy.x   = S.enemy.tx;
+}
+
+// ── Dice ─────────────────────────────────────────────────────────────────────
+function rollND(n, d) {
+  let t = 0; const r = [];
+  for (let i=0;i<n;i++) { const v=1+Math.floor(Math.random()*d); r.push(v); t+=v; }
+  return {total:t, rolls:r};
+}
+
+// ── Combat ───────────────────────────────────────────────────────────────────
+function doRound() {
+  S.round++;
+  const p = S.player, e = S.enemy;
+
+  log('rnd', `── Round ${S.round} ──`);
+
+  // AI closes range if player has higher thrust advantage
+  if (S.rangeBand > 2 && e.thrust > 0) {
+    S.rangeBand = Math.max(1, S.rangeBand - 1);
+    updateShipTargets();
+    log('r', `Patrol Cruiser closes to ${RANGE_NAMES[S.rangeBand]}`);
+  }
+
+  // Initiative
+  const pi = rollND(2,6).total + p.pilot;
+  const ei = rollND(2,6).total + e.pilot;
+  const pFirst = pi >= ei;
+  log('r', `Initiative — Scout ${pi} vs Cruiser ${ei} → ${pFirst?'Scout':'Cruiser'} fires first`);
+
+  const order = pFirst
+    ? [[p,e,'Scout','Cruiser'],[e,p,'Cruiser','Scout']]
+    : [[e,p,'Cruiser','Scout'],[p,e,'Scout','Cruiser']];
+
+  for (const [atk,def,an,dn] of order) {
+    if (!atk.alive || !def.alive) continue;
+    if (atk.noFire) { atk.noFire=false; log('m',`${an}: power failure — cannot fire`); continue; }
+
+    const rangeDM = RANGE_DMS[S.rangeBand];
+    const r2 = rollND(2,6);
+    const tot = r2.total + atk.gunner + rangeDM + atk.weaponDM + atk.allDM;
+    const hit = tot >= 8;
+
+    document.getElementById('h-roll').textContent = `${r2.total}+${atk.gunner}${rangeDM}=${tot}`;
+
+    const dStr = `[${r2.rolls.join('+')}]=${r2.total} Gunner+${atk.gunner} Range${rangeDM} → ${tot} vs 8+`;
+
+    if (hit) {
+      const dmg = rollND(atk.weapon.dc, atk.weapon.ds);
+      const soak = def.doubleDmg ? 0 : def.armor;
+      const net  = Math.max(0, dmg.total - soak);
+      def.hull   = Math.max(0, def.hull - net);
+
+      log('h', `${an} fires ${atk.weapon.name}: ${dStr} — HIT`);
+      if (soak > 0)
+        log('a', `  Damage [${dmg.rolls.join('+')}]=${dmg.total} − Armor ${soak} = ${net} hull`);
+      else
+        log('h', `  Damage [${dmg.rolls.join('+')}]=${dmg.total} = ${net} hull`);
+
+      // Criticals — one per 4 hull damage taken
+      const crits = Math.floor(net / 4);
+      for (let i=0;i<crits;i++) {
+        const cr = 1 + Math.floor(Math.random()*12);
+        applyCrit(def, cr);
+        def.criticals.push(CRIT[cr]);
+        log('c', `  ⚠ CRITICAL ${cr}: ${CRIT[cr]}`);
+      }
+
+      // Visual
+      atk.laserLife = 30;
+      atk.laserTX = def.x; atk.laserTY = def.y;
+      def.hitFlash = 22;
+      spawnFloat(def.x, def.y-35, `-${net}`, '#ff7043');
+      if (crits>0) spawnFloat(def.x, def.y-55, '⚠ CRIT', '#ff1744');
+
+      if (!def.alive || def.hull <= 0) {
+        def.alive = false;
+        log('c', `${dn} DESTROYED`);
+        spawnExplosion(def.x, def.y, def.color);
+        break;
+      }
+    } else {
+      log('m', `${an} fires ${atk.weapon.name}: ${dStr} — MISS`);
+      atk.laserLife = 12;
+      atk.laserTX = def.x + (Math.random()-0.5)*60;
+      atk.laserTY = def.y + (Math.random()-0.5)*40;
+    }
+  }
+
+  updateHUD();
+
+  if (!p.alive) setTimeout(()=>endGame(false), 700);
+  else if (!e.alive) setTimeout(()=>endGame(true), 700);
+}
+
+function applyCrit(ship, roll) {
+  if (roll===5)  ship.weaponDM -= 1;
+  if (roll===6)  ship.thrust = Math.max(0, ship.thrust-1);
+  if (roll===7)  ship.allDM -= 1;
+  if (roll===8)  ship.doubleDmg = true;
+  if (roll===10) ship.noFire = true;
+  if (roll===11) ship.thrust = 0;
+  if (roll===12) ship.alive = false;
+}
+
+// ── Stars ─────────────────────────────────────────────────────────────────────
+function initStars() {
+  stars = [];
+  for (let i=0;i<160;i++) stars.push({
+    x: Math.random()*810, y: Math.random()*400,
+    r: Math.random()*1.4+0.2, a: Math.random()*0.55+0.15,
+    tw: Math.random()*Math.PI*2
+  });
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+const CV = document.getElementById('canvas');
+const CX = CV.getContext('2d');
+
+function render() {
+  CX.clearRect(0,0,810,400);
+  CX.fillStyle='#050510'; CX.fillRect(0,0,810,400);
+
+  drawStars();
+  drawRangeBG();
+  drawConnector();
+  drawLasers();
+  drawParticles();
+  if (S.player.alive) drawScout(S.player);
+  if (S.enemy.alive)  drawCruiser(S.enemy);
+  drawFloats();
+  drawTimerBar();
+}
+
+function drawStars() {
+  for (const s of stars) {
+    s.tw += 0.025;
+    const a = s.a + Math.sin(s.tw)*0.12;
+    CX.fillStyle = `rgba(200,210,255,${a.toFixed(2)})`;
+    CX.beginPath(); CX.arc(s.x,s.y,s.r,0,Math.PI*2); CX.fill();
+  }
+}
+
+function drawRangeBG() {
+  const tints = ['#200028','#00102a','#001a10','#1a1500','#280008','#12001a'];
+  CX.fillStyle = tints[S.rangeBand];
+  CX.globalAlpha = 0.18;
+  CX.fillRect(0,0,810,400);
+  CX.globalAlpha = 1;
+
+  CX.fillStyle='rgba(90,110,170,.12)';
+  CX.font='bold 11px Courier New';
+  CX.textAlign='center';
+  CX.fillText(RANGE_NAMES[S.rangeBand].toUpperCase(), 405, 24);
+}
+
+function drawConnector() {
+  const px = S.player.x+36, ex = S.enemy.x-44, my = 200;
+  CX.strokeStyle='rgba(70,90,150,.18)';
+  CX.setLineDash([3,9]); CX.lineWidth=1;
+  CX.beginPath(); CX.moveTo(px,my); CX.lineTo(ex,my); CX.stroke();
+  CX.setLineDash([]);
+}
+
+function drawLasers() {
+  for (const ship of [S.player, S.enemy]) {
+    if (ship.laserLife <= 0) continue;
+    const a = ship.laserLife / 30;
+    const sx = ship.isPlayer ? ship.x+36 : ship.x-44;
+    laserBeam(sx, ship.y, ship.laserTX, ship.laserTY, ship.color, a);
+    ship.laserLife--;
+  }
+}
+
+function laserBeam(x1,y1,x2,y2,col,a) {
+  CX.save();
+  // glow pass
+  CX.globalAlpha = a*0.22; CX.strokeStyle=col;
+  CX.lineWidth=9; CX.shadowColor=col; CX.shadowBlur=18;
+  CX.beginPath(); CX.moveTo(x1,y1); CX.lineTo(x2,y2); CX.stroke();
+  // mid
+  CX.globalAlpha = a*0.55; CX.lineWidth=3; CX.shadowBlur=0;
+  CX.beginPath(); CX.moveTo(x1,y1); CX.lineTo(x2,y2); CX.stroke();
+  // core
+  CX.globalAlpha = a; CX.strokeStyle='#fff'; CX.lineWidth=1;
+  CX.beginPath(); CX.moveTo(x1,y1); CX.lineTo(x2,y2); CX.stroke();
+  CX.restore();
+}
+
+function drawParticles() {
+  for (const p of particles) {
+    const a = p.life/p.maxLife;
+    CX.globalAlpha = a;
+    CX.fillStyle = p.color;
+    CX.beginPath(); CX.arc(p.x,p.y,p.r*a,0,Math.PI*2); CX.fill();
+  }
+  CX.globalAlpha = 1;
+}
+
+function drawScout(ship) {
+  const {x,y,color,hitFlash} = ship;
+  CX.save(); CX.translate(x,y);
+
+  CX.shadowColor=color; CX.shadowBlur=hitFlash>0?24:14;
+
+  // hull
+  CX.fillStyle = hitFlash>0 ? `rgba(255,200,100,${hitFlash/22*.7})` : 'rgba(0,18,48,.88)';
+  CX.strokeStyle=color; CX.lineWidth=1.5;
+  CX.beginPath();
+  CX.moveTo(37,0); CX.lineTo(16,-10); CX.lineTo(-7,-14);
+  CX.lineTo(-28,-9); CX.lineTo(-28,9); CX.lineTo(-7,14);
+  CX.lineTo(16,10); CX.closePath();
+  CX.fill(); CX.stroke();
+
+  // cockpit
+  CX.shadowBlur=0; CX.fillStyle='rgba(80,170,255,.5)';
+  CX.beginPath();
+  CX.moveTo(22,0); CX.lineTo(9,-5); CX.lineTo(1,-4);
+  CX.lineTo(1,4); CX.lineTo(9,5); CX.closePath(); CX.fill();
+
+  // engine pods
+  CX.shadowColor=color; CX.shadowBlur=8;
+  CX.fillStyle='rgba(0,50,130,.85)'; CX.strokeStyle=color; CX.lineWidth=1;
+  CX.fillRect(-30,-16,5,8); CX.strokeRect(-30,-16,5,8);
+  CX.fillRect(-30,8,5,8);   CX.strokeRect(-30,8,5,8);
+
+  // engine glow
+  CX.fillStyle='rgba(100,180,255,.7)';
+  CX.beginPath(); CX.ellipse(-32,-12,4,3,0,0,Math.PI*2); CX.fill();
+  CX.beginPath(); CX.ellipse(-32,12,4,3,0,0,Math.PI*2); CX.fill();
+
+  CX.restore();
+  drawHullBar(ship, 32);
+}
+
+function drawCruiser(ship) {
+  const {x,y,color,hitFlash} = ship;
+  CX.save(); CX.translate(x,y); CX.scale(-1,1); // face left
+
+  CX.shadowColor=color; CX.shadowBlur=hitFlash>0?28:18;
+
+  // hull
+  CX.fillStyle = hitFlash>0 ? `rgba(255,120,80,${hitFlash/22*.7})` : 'rgba(38,0,0,.88)';
+  CX.strokeStyle=color; CX.lineWidth=1.5;
+  CX.beginPath();
+  CX.moveTo(50,0); CX.lineTo(26,-19); CX.lineTo(-10,-24);
+  CX.lineTo(-38,-16); CX.lineTo(-44,-8); CX.lineTo(-44,8);
+  CX.lineTo(-38,16); CX.lineTo(-10,24); CX.lineTo(26,19);
+  CX.closePath(); CX.fill(); CX.stroke();
+
+  // superstructure
+  CX.shadowBlur=0; CX.fillStyle='rgba(70,0,0,.65)'; CX.strokeStyle=color; CX.lineWidth=1;
+  CX.fillRect(6,-9,20,18); CX.strokeRect(6,-9,20,18);
+
+  // turret
+  CX.shadowColor=color; CX.shadowBlur=10;
+  CX.fillStyle=color;
+  CX.beginPath(); CX.arc(-12,-22,7,0,Math.PI*2); CX.fill();
+  CX.fillStyle='rgba(255,80,80,.8)';
+  CX.beginPath(); CX.arc(-12,-22,4,0,Math.PI*2); CX.fill();
+
+  // engine glow
+  CX.fillStyle='rgba(220,80,80,.6)';
+  CX.beginPath(); CX.ellipse(-46,-4,5,3,0,0,Math.PI*2); CX.fill();
+  CX.beginPath(); CX.ellipse(-46,4,5,3,0,0,Math.PI*2); CX.fill();
+
+  CX.restore();
+  drawHullBar(ship, 40);
+}
+
+function drawHullBar(ship, ofs) {
+  const pct = Math.max(0, ship.hull/ship.hullMax);
+  const bw=84, bh=6, bx=ship.x-bw/2, by=ship.y - ofs - 18;
+
+  CX.fillStyle='rgba(0,0,0,.55)'; CX.fillRect(bx-1,by-1,bw+2,bh+2);
+  CX.fillStyle = pct>0.5 ? ship.color : pct>0.25 ? '#ffd740' : '#ff1744';
+  CX.fillRect(bx, by, bw*pct, bh);
+  CX.strokeStyle='rgba(255,255,255,.08)'; CX.lineWidth=1;
+  CX.strokeRect(bx,by,bw,bh);
+
+  CX.fillStyle='rgba(180,200,255,.5)';
+  CX.font='8px Courier New'; CX.textAlign='center';
+  CX.fillText(ship.name.toUpperCase(), ship.x, by-3);
+}
+
+function drawFloats() {
+  for (const f of floats) {
+    const a = f.life/f.maxLife;
+    CX.globalAlpha = a;
+    CX.fillStyle = f.color;
+    CX.font = `bold 13px Courier New`;
+    CX.textAlign='center';
+    CX.fillText(f.text, f.x, f.y);
+    f.y += f.vy; f.life--;
+  }
+  CX.globalAlpha=1;
+  floats = floats.filter(f=>f.life>0);
+}
+
+function drawTimerBar() {
+  const dur = S.fast ? 60 : 200;
+  const pct = S.roundTimer/dur;
+  CX.fillStyle='rgba(80,120,220,.13)'; CX.fillRect(0,394,810*pct,6);
+  CX.fillStyle='rgba(80,120,220,.5)';  CX.fillRect(810*pct-2,392,3,8);
+}
+
+// ── Effects ──────────────────────────────────────────────────────────────────
+function spawnFloat(x,y,text,color) {
+  floats.push({x,y,vy:-0.55,text,color,life:80,maxLife:80});
+}
+
+function spawnExplosion(x,y,color) {
+  for (let i=0;i<50;i++) {
+    const a = Math.random()*Math.PI*2, s = Math.random()*4.5+0.5;
+    particles.push({
+      x,y, vx:Math.cos(a)*s, vy:Math.sin(a)*s,
+      r:Math.random()*5+1,
+      color: Math.random()>.45 ? color : '#ffffff',
+      life:Math.random()*50+25, maxLife:75
+    });
+  }
+}
+
+// ── Game loop ─────────────────────────────────────────────────────────────────
+let last=0;
+function loop(ts) {
+  const dt = ts-last; last=ts;
+  update(dt);
+  render();
+  requestAnimationFrame(loop);
+}
+
+function update() {
+  if (S.over) { updateParticles(); return; }
+
+  // Lerp ships to target positions
+  S.player.x += (S.player.tx - S.player.x)*0.06;
+  S.enemy.x  += (S.enemy.tx  - S.enemy.x )*0.06;
+
+  // Decay hit flash
+  if (S.player.hitFlash>0) S.player.hitFlash--;
+  if (S.enemy.hitFlash>0)  S.enemy.hitFlash--;
+
+  updateParticles();
+
+  S.roundTimer++;
+  const dur = S.fast ? 60 : 200;
+  if (S.roundTimer >= dur) { S.roundTimer=0; doRound(); }
+}
+
+function updateParticles() {
+  for (const p of particles) { p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.life--; }
+  particles = particles.filter(p=>p.life>0);
+}
+
+// ── HUD ──────────────────────────────────────────────────────────────────────
+function updateHUD() {
+  const p=S.player, e=S.enemy;
+
+  const pp=Math.max(0,p.hull/p.hullMax*100);
+  const ep=Math.max(0,e.hull/e.hullMax*100);
+
+  setBar('p',pp,p.hull,p.hullMax,false);
+  setBar('e',ep,e.hull,e.hullMax,true);
+
+  $('p-thr').textContent = p.thrust;
+  $('e-thr').textContent = e.thrust;
+  $('p-crits').textContent = p.criticals.length ? '⚠ '+p.criticals.slice(-2).join(' | ') : '';
+  $('e-crits').textContent = e.criticals.length ? '⚠ '+e.criticals.slice(-2).join(' | ') : '';
+
+  $('h-round').textContent = S.round || '—';
+  $('h-range').textContent = RANGE_NAMES[S.rangeBand].toUpperCase();
+  $('ctrl-range').textContent = RANGE_NAMES[S.rangeBand].toUpperCase();
+  $('h-phase').textContent = S.over ? 'ENDED' : 'COMBAT';
+
+  $('btn-cl').disabled = S.rangeBand<=0 || S.player.thrust<=0;
+  $('btn-op').disabled = S.rangeBand>=RANGE_NAMES.length-1 || S.player.thrust<=0;
+}
+
+function setBar(id,pct,cur,max,isEnemy) {
+  const bar=$(`${id}-bar`), txt=$(`${id}-btext`);
+  bar.style.width=pct+'%';
+  txt.textContent=`${Math.max(0,cur)}/${max}`;
+  bar.className='bfill '+(isEnemy?'e':'p')+(pct<25?' cr':pct<50?' lo':'');
+}
+
+// ── Log ──────────────────────────────────────────────────────────────────────
+function log(cls,text) {
+  const d=document.createElement('div');
+  d.className='l'+cls; d.textContent=text;
+  const c=$('log-entries'); c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+}
+
+// ── Controls ─────────────────────────────────────────────────────────────────
+function changeRange(delta) {
+  if (S.over) return;
+  const nr = S.rangeBand+delta;
+  if (nr<0||nr>=RANGE_NAMES.length||S.player.thrust<=0) return;
+  S.rangeBand=nr;
+  updateShipTargets();
+  updateHUD();
+  log('s', `Scout ${delta<0?'closes to':'opens to'} ${RANGE_NAMES[nr]}`);
+}
+
+function updateShipTargets() {
+  const g = RANGE_GAPS[S.rangeBand];
+  S.player.tx = 405 - g/2;
+  S.enemy.tx  = 405 + g/2;
+}
+
+function toggleSpeed() {
+  S.fast=!S.fast;
+  $('speed-btn').textContent='SPEED: '+(S.fast?'FAST':'NORMAL');
+}
+
+function endGame(victory) {
+  S.over=true;
+  setTimeout(()=>{
+    $('otitle').textContent = victory ? 'VICTORY' : 'SHIP LOST';
+    $('otitle').style.color = victory ? '#42a5f5' : '#ef5350';
+    $('osub').textContent   = victory
+      ? `Patrol Cruiser destroyed in ${S.round} rounds.`
+      : `Your Scout was destroyed in ${S.round} rounds.`;
+    $('overlay').classList.add('show');
+  }, 1600);
+}
+
+function restartGame() {
+  $('overlay').classList.remove('show');
+  $('log-entries').innerHTML='';
+  particles=[]; floats=[];
+  initState();
+  updateHUD();
+  log('s','▸ STARFIRE — Mongoose Traveller 2e Combat Engine');
+  log('s','─────────────────────────────────────────────────');
+  log('s',`Type S Scout  vs  Patrol Cruiser`);
+  log('r',`Scout: Armor 0 / Hull 8 / Thrust 2 / Pulse Laser 2D6`);
+  log('r',`Cruiser: Armor 6 / Hull 20 / Thrust 1 / Triple Turret 3D6`);
+  log('s',`Opening range: ${RANGE_NAMES[S.rangeBand]}`);
+  log('s','Use ◀ CLOSE / OPEN ▶ to manage range.');
+  log('s','─────────────────────────────────────────────────');
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function $(id){ return document.getElementById(id); }
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+initStars();
+restartGame();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
