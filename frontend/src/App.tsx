@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link, NavLink, useParams } from "react-ro
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ShipList from "./pages/ShipList";
 import ShipBuilder from "./pages/ShipBuilder";
+import BattleLobby from "./pages/BattleLobby";
 import BattleView from "./pages/BattleView";
 
 const qc = new QueryClient();
@@ -22,7 +23,7 @@ function Nav() {
       </Link>
       <NavLink to="/ships" style={linkStyle}>Ships</NavLink>
       <NavLink to="/ships/new" style={linkStyle}>Build Ship</NavLink>
-      <NavLink to="/battle/1" style={linkStyle}>Battle</NavLink>
+      <NavLink to="/battle" style={linkStyle}>Battle</NavLink>
     </nav>
   );
 }
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/ships" element={<ShipList />} />
             <Route path="/ships/new" element={<ShipBuilder />} />
             <Route path="/ships/:id/edit" element={<ShipBuilder />} />
+            <Route path="/battle" element={<BattleLobby />} />
             <Route path="/battle/:id" element={<BattleViewWrapper />} />
           </Routes>
         </div>
