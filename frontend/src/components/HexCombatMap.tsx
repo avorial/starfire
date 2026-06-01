@@ -264,16 +264,9 @@ export default function HexCombatMap({ ships, onMoveShip, onSelectShip, selected
                         <rect x={-3.3} y={4} width={6.6} height={1.2} fill="#0a0f1e" rx={0.4} />
                         <rect x={-3.3} y={4} width={Math.max(0, 6.6 * hpPct)} height={1.2} fill={hpColor} rx={0.4} />
 
-                        {/* Thrust remaining when selected */}
-                        {isSel && (
-                          <Text y={-5.8} style={{ fontSize: "2.2px", fill: "#fbbf24", textAnchor: "middle", dominantBaseline: "middle", pointerEvents: "none" }}>
-                            {hs.state.thrust_remaining}T
-                          </Text>
-                        )}
-
-                        {/* Ship name */}
-                        <Text y={7.2} style={{ fontSize: "1.7px", fill: "#93c5fd", textAnchor: "middle", dominantBaseline: "middle", pointerEvents: "none" }}>
-                          {hs.ship.name.slice(0, 12)}
+                        {/* Ship name — white, below HP bar */}
+                        <Text y={7.4} style={{ fontSize: "2px", fill: "#ffffff", textAnchor: "middle", dominantBaseline: "middle", pointerEvents: "none" }}>
+                          {hs.ship.name.slice(0, 14)}
                         </Text>
                       </g>
                     );
