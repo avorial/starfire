@@ -183,6 +183,9 @@ class Ship(Base):
     total_cost_mcr = Column(Float, default=0.0)
     image_url = Column(String, nullable=True)
     description = Column(String, nullable=True)
+    # Source tracking: "user" for custom ships, book title for canonical ships
+    source = Column(String, default="user")
+    is_canonical = Column(Boolean, default=False)
     extra = Column(JSON, default=dict)
 
     weapons = relationship("Weapon", back_populates="ship", cascade="all, delete-orphan")

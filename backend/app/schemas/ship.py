@@ -105,6 +105,8 @@ class ShipBase(BaseModel):
     total_cost_mcr: float = 0.0
     image_url: Optional[str] = None
     description: Optional[str] = None
+    source: str = "user"
+    is_canonical: bool = False
     extra: dict = {}
 
 

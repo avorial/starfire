@@ -1,0 +1,1825 @@
+PAGE 208
+The Chrysanthemum destroyer escort is a small, fast 
+vessel intended for fleet and squadron escort duties. 
+The design is old, but efficient, with examples of the 
+ship serving in the Imperial Navy for over a century. 
+Chrysanthemums are ubiquitous, being encountered 
+with larger fleet elements as much as working alone.
+DESTROYER ESCORT CLASS: CHRYSANTHEMUM
+Crew
+Captain, Officers x3, 
+Pilots x3, Astrogator, 
+Medic, Maintenance 
+x2, Engineers x7, 
+Administrators x7, 
+Gunners x20
+Hull: 440
+Running Costs
+MAINTENANCE COST
+Cr46634/month
+PURCHASE COST
+MCr559.602
+Power Requirements
+Basic Ship Systems
+200
+Manoeuvre Drive
+600
+Jump Drive
+400
+Sensors
+6
+Weapons
+57
+Fuel Processor
+10
+Systems
+1
+This class of destroyer escort has been pressed into 
+service in a variety of non-escort duties, including 
+orbital patrols, police operations, garrison duties, 
+and even limited strike missions.
+TL15  Tons Cost (MCr)
+Hull 1,000 tons, Close Structure — 40
+Reinforced — 20
+Armour Bonded Superdense, Armour: 2 24 12
+M-Drive Thrust 6 60 120
+J-Drive Jump-4 105 157.5
+Power Plant Fusion (TL15), Power 1,280 64 128
+Fuel Tanks J-4, 8 weeks of operation 413 —
+Bridge Holographic Controls 20 6.25
+Computer Computer/35fib — 45
+Sensors Advanced 5 5.3
+Weapons Fusion Barbette 5 4
+Particle Barbettes x2 10 16
+Triple Turrets (missile racks) x2 2 6.5
+Triple Turrets (sandcasters) x5 5 8.75
+Ammunition Missile Storage (384 missiles) 32 —
+Sandcaster Canister Storage (640 
+canisters)
+32 —
+Craft Docking Space (40 tons) 44 11
+Pinnace — 9.68
+Systems Fuel Processor (200 tons/day) 10 0.5
+Fuel Scoops — 1
+Armoury 2 0.5
+Medical Bay 4 2
+Repair Drones 10 2
+Staterooms Standard x24 96 12
+Software Manoeuvre — —
+Intellect — —
+Library — —
+Jump Control/4 — 0.4
+Auto-Repair/1 — 5
+Evade/2 — 2
+Fire Control/2 — 4
+Common Areas 24 2.4
+Cargo 33 —
+Total: MCr621.78
+207
+PAGE 212
+During the height of the Third Frontier War (979 
+to 986), high losses in civilian shipping and 
+among transport vessels impressed into Imperial 
+service resulted in the issuance of an Admiralty 
+specification for a mid-sized escort vessel expressly 
+for close protection of unarmed transport craft. The 
+design which was finally accepted was the Fer-de-
+lance destroyer escort.
+DESTROYER ESCORT CLASS: FER-DE-LANCE
+Performance characteristics for this class make it 
+capable of staying with most Imperial fleets and 
+thus this type of vessel can be found escorting most 
+squadrons as well as more typical convoys.
+TL15  Tons Cost (MCr)
+Hull 1,000 tons, Close Structure — 40
+Reinforced — 20
+Armour Bonded Superdense, Armour: 2 24 12
+Radiation Shielding — 25
+M-Drive Thrust 6 (energy efficient x2) 60 150
+J-Drive Jump 4 (reduced fuel x2) 105 196.875
+Power Plant Fusion (TL15), Power 1,000 50 100
+Fuel Tanks J-4, 8 weeks of operation 370 —
+Bridge Holographic Controls 20 6.25
+Computer Computer/35fib — 45
+Sensors Advanced 5 5.3
+Countermeasures Suite 2 4
+Weapons Missile Barbettes (accurate) x4 28 20
+Triple Turrets (accurate, high yield 
+beam lasers) x6
+6 19.5
+Ammunition Missile Storage (360 missiles) 30 —
+Craft Docking Spaces (50 tons) x2 110 27.5
+ Modular Cutters x2 — 23.86
+Systems Fuel Processor (180 tons/day) 9 0.45
+Fuel Scoops — 1
+ Repair Drones 10 2
+ Medical Bay 4 2
+ Armoury 2 0.5
+Staterooms Standard x28 112 14
+Software Manoeuvre — —
+Intellect — —
+ Jump Control/4 — 0.4
+ Library — —
+Auto-Repair/1 — 5
+Evade/2 — 2
+Fire Control/2 — 4
+Common Areas  11 1.1
+Cargo  42 —
+Total: MCr727.735
+Crew
+Captain, Pilots x3, 
+Astrogator, Engineers 
+x7, Maintenance 
+x2, Gunners x20, 
+Administrator, Sensops 
+x3, Small Craft Crew 
+x4, Officers x4, Medic
+Hull: 440
+Running Costs
+MAINTENANCE COST
+Cr54581/month
+PURCHASE COST
+MCr654.9615
+Power Requirements
+Basic Ship Systems
+200
+Manoeuvre Drive
+300
+Jump Drive
+400
+Sensors
+6
+Weapons
+78
+Fuel Processor
+9
+Medical Bays
+1
+211
+PAGE 215
+KINUNIR 
+COLONIAL 
+CRUISER
+The Kinunir colonial cruiser (also known by a variety of designations: vanguard 
+cruiser, battlecruiser and vanguard escort) is more of a fast armed troop 
+transport than a true cruiser. It is an ill-fated model, discontinued after a 
+production run of only 20. Several have been lost in action. One has been 
+converted into an orbital prison.
+Its true purpose was as an experimental platform, which helped the class 
+gain access to black globe generators that are usually reserved for much 
+larger ships. More than one was fitted with an experimental AI, which can be 
+represented by adding a secondary Computer 35/bis (using ‘bis’ for Conscious 
+Intelligence rather than Jump Control) that only runs the TL16 version of 
+Conscious Intelligence, adding MCr70 to the price and Cr5833 to the monthly 
+maintenance. These AIs worked poorly enough that they help explain why this 
+model was ill-fated.
+The design attempts to serve many missions at once, none well, with 10 
+marines each assigned for boarding actions, meteoric assault and mechanised 
+deployment plus a four-marine command section on the air/raft, leaving one 
+marine on the ship as a liaison. In practice, it was rare to have immediate use 
+for more than one role at a time, so using a trio of modified ship’s boats that 
+could serve all roles and training the marines for all missions would have been 
+superior. Some ship-design libraries include the Kinunir as an example of what 
+not to do in this regard.
+Virtual gunners crew the screens and missiles, one virtual gunner replacing 
+both crew positions for each installation. Live gunners crew the barbettes, 
+where higher skill is more useful. The marines are counted as basic 
+passengers, needing neither officer nor steward crew positions, as they have 
+no function aboard the ship. Not enough Kinunirs were produced to qualify for 
+mass production discounts, although their pinnaces did, so the discounted cost 
+is listed here.
+COLONIAL CRUISER CLASS: K
+PAGE 216
+TL15  Tons Cost (MCr)
+Hull 1,200 tons, Standard — 60
+Reinforced — 30
+Armour Bonded Superdense, Armour: 4 38.4 19.2
+M-Drive Thrust 4 48 96
+J-Drive Jump 4 (reduced fuel) 125 206.25
+Power Plant Fusion (TL15), Power 1,400 70 140
+Fuel Tanks J-4, 4 weeks of operation 463 —
+Bridge Holographic Controls 40 7.5
+Computer Computer/35 — 30
+Sensors Advanced 5 5.3
+Weapons Triple Turrets (missile racks) x2 2 6.5
+Particle Barbettes x2 10 16
+Point Defence Laser Battery (Type III) 20 20
+Ammunition Missile Storage (120 missiles) 10 1
+Screens Nuclear Dampers x5 50 50
+Black Globe Generator 50 100
+Craft Docking Space (40 tons) 44 11
+Pinnace — 9.68
+Docking Space (15 tons) 16.5 4.125
+G/Carrier — 11.58
+Docking Space (4 tons) 5 1.25
+Air/Raft — 0.25
+Systems Fuel Processor (100 tons/day) 5 0.25
+ Fuel Scoops — 1
+High Survivability Capsules x20 10 2
+Workshop 6 0.9
+Medical Bay 4 2
+Briefing Room 4 0.5
+Armoury 9 2.25
+Staterooms Standard x20 80 10
+Barracks x35 35 1.75
+Software Manoeuvre — —
+ Jump Control/4 — 0.4
+Advanced Fire Control/1 — 12
+Virtual Gunner/0 — 1
+Evade/2 — 2
+ Library — —
+ Intellect — —
+Common Areas 29 2.9
+Cargo  21.1 —
+Total: MCr864.585
+ 
+COLONIAL CRUISER CLASS: KINUNIR
+215
+PAGE 218
+TL12  Tons Cost (MCr)
+Hull 1,800 tons, Standard — 90
+M-Drive Thrust 4 72 144
+Thrust 2 (backup) 36 72
+J-Drive Jump 3 140 210
+Jump 2 (backup) 95 142.5
+Power Plant Fusion (TL12), Power 1,665 111 111
+Fuel Tanks J-4, 16 weeks of operation 588 —
+Bridge  —        40 9
+Smaller (backup) 20 4.5
+Computer Computer/10bis,fib — 0.32
+Backup Computer/5bis,fib — 0.06
+Sensors Civilian Grade 1 3
+Weapons Double Turrets (energy efficient 
+x3 beam lasers) x6
+6 12
+Fixed Mounts (missile racks) x2 — 1.7
+Torpedo Barbettes x2 14 6
+Ammunition Missile Storage (48 missiles) 4 0.4
+Torpedo Storage (12 torpedoes) 4 0.4
+Craft Docking Space (4 tons) 5 1.25
+Air/Raft — 0.25
+Docking Space (10 tons) x2 22 5.5
+Launches x2 — 5.66
+Docking Space (40 tons) x2 44 11
+Pinnace — 9.68
+Docking Space (95 tons) 105 26.25
+Shuttle — 16.83
+Systems Fuel Processor (300 tons/day) 15 0.75
+ Fuel Scoops — 1 
+ Multi-Environment Space 21 0.5
+ Cargo Crane 3.5 3.5
+ Probe Drones x5 1 0.5
+ Cargo Airlock 4.5 0.45
+Armoury 2 0.5
+MERCHANT CRUISER CLASS: LEVIATHAN
+The Leviathan was developed from previous designs 
+and is primarily intended for independent cruising in 
+undeveloped trade areas; high survivability is also a 
+design factor. The vessels are partially streamlined, 
+allowing wilderness refuelling operations as well 
+as landings in Atmospheres 0 and 1. Atmospheric 
+landings are otherwise not recommended, hence 
+the large complement of small craft. The energy-
+efficient weapons allow all primary systems except 
+the fuel processor to be run simultaneously should 
+the ship be faced with combat. A luxury stateroom is 
+maintained for the owner-aboard when present.
+Crew
+Captain, Pilots x3, 
+Astrogator, Engineers 
+x13, Maintenance x2, 
+Medics x2, Gunners 
+x10, Steward, 
+Administrator, Officer
+Hull: 720
+Running Costs
+MAINTENANCE COST
+Cr70017/month
+PURCHASE COST
+MCr840.204
+Power Requirements
+Basic Ship Systems
+360
+Manoeuvre Drive
+720
+Jump Drive
+540
+Sensors
+1
+Weapons
+21
+Fuel Processor
+15
+Multi-Environment Space
+1
+Biosphere
+17
+Medical Bay
+PAGE 224
+The Al Morai corporation maintains a fleet of 53 type 
+MK Mora cargo carriers (not enough to receive the 
+discount for standard designs), plying fixed routes of 
+select Class A and B starports throughout the Spinward 
+Marches, armed and accompanied by surplus Gazelle 
+close escorts as deterrents to piracy. Generally named 
+for systems along the route, these freighters maximise 
+cargo space by using a cramped bridge, an undersized 
+power plant that requires dimming ship’s power when 
+CARGO CARRIER CLASS: MK MORA
+Crew
+Captain, Pilots x3, 
+Astrogator, Engineers 
+x11, Maintenance x3, 
+Medic, Stewards x3, 
+Administrator, Officer
+Hull: 1,080
+Running Costs
+MAINTENANCE COST
+Cr84281/month
+PURCHASE COST
+MCr1011.365 
+Power Requirements
+Basic Ship Systems
+600
+Manoeuvre Drive
+300
+Jump Drive
+1,200
+Sensors
+1
+Weapons
+74
+Loading Belts
+3
+Medical Bay
+1
+initiating a jump-4, turrets controlled via software and 
+fuel/cargo containers to maximise cargo on shorter 
+jumps. Al Morai facilities at each stop supply refined 
+fuel, so no processors are installed. Two pinnaces for 
+ferrying of passengers and cargo, and for emergency 
+use as lifeboats. The ship has 14 rooms for crew 
+(single occupancy for the captain, chief engineer 
+and medic; double occupancy otherwise) and 30 
+passenger staterooms.
+TL15  Tons Cost (MCr)
+Hull 3,000 tons, Close Structure, 
+Light Hull
+— 90
+M-Drive Thrust 1 30 60
+J-Drive Jump 4 (decreased fuel x2) 305 571.875
+Power Plant Fusion (TL15), Power 1,520 76 152
+Fuel Tanks J-2, 4 weeks of operation 548 —
+Bridge Smaller Bridge 40 7.5
+Computer Computer/15bis — 3
+Sensors Military Grade 2 4.1
+Weapons Triple Turrets (long range, 
+high yield pulse lasers x2, 
+sandcaster) x6
+6 25.5
+Triple Turrets (missile racks 
+x2, accurate, high yield beam 
+laser) x4
+4 13
+ Craft Docking Spaces (40 tons) x2 88 22
+ Pinnaces x2 — 19.36
+Systems Fuel/Cargo Containers (270 
+tons) x2
+567 2.7
+Cargo Crane 6.5 6.5
+ Loading Belts x3 3 0.03
+ Medical Bay 4 2
+Staterooms Standard x44 176 22
+Software Manoeuvre
+PAGE 228
+MIDU AGASHAAM 
+DESTROYER
+ The Midu Agashaam destroyer is a streamlined 
+escort vessel intended to supplement fleet defences 
+with anti-fighter and anti-small craft ships. As yet, the 
+class has achieved only limited production and is still 
+considered to be experimental or developmental in 
+DESTROYER CLASS: MIDU AGASHAAM
+Crew
+Captain, Officers x8, 
+Pilots x3, Astrogator, 
+Medic, Maintenance 
+x6, Engineers x19, 
+Administrators x3, 
+Gunners x54
+Hull: 1,320
+Running Costs
+MAINTENANCE COST
+Cr153657/month
+PURCHASE COST
+MCr1843.884
+Power Requirements
+Basic Ship Systems
+600
+Manoeuvre Drive
+1,350
+Jump Drive
+1,200
+Sensors
+9
+Weapons
+346
+Fuel Processor
+30
+Systems
+1
+status. The Admiralty, in its evaluation efforts, has 
+thus far deployed the ships in over-sized squadrons 
+of 10 to 20 vessels and has committed them to op-
+erations only with the Navy’s major battle fleets.
+227
+
+PAGE 229
+TL15  Tons Cost (MCr)
+Hull 3,000 tons, Streamlined, Reinforced — 180
+Armour Bonded Superdense, Armour: 4 115.2 57.6
+M-Drive Thrust 6 (energy efficient) 180 396
+J-Drive Jump-4 305 457.5
+Power Plant Fusion (TL15), Power 3,540 177 354
+Fuel Tanks J-4, 8 weeks of operation 1,236 —
+Bridge Holographic Controls 60 18.75
+Computer Core/70fib — 120
+Sensors Advanced 5 5.3
+Countermeasures Suite 1 2
+Enhanced Signal Processing 1 2
+Weapons Small Particle Beam Bay 50 20
+Triple Turrets (missile racks) x6 6 19.5
+Triple Turrets (pulse lasers) x8 8 32
+Triple Turrets (sandcasters) x6 6 10.5
+Point Defence Laser Batteries (Type III) x2 40 40
+Ammunition Missile Storage (288 missiles) 24 —
+Sandcaster Canister Storage (480 canisters) 24 —
+Screens Meson Screens x2 20 40
+Nuclear Dampers x4 40 40
+Craft Docking Spaces (40 tons) x2 88 22
+Pinnaces x 2 — 19.36
+Systems Fuel Processor (600 tons/day) 30 1.5
+Fuel Scoops — —
+Armoury 5 1.25
+Briefing Room 4 1
+Medical Bay 4 2
+Repair Drones 30 6
+Workshop 6 0.9
+Staterooms Standard x96 384 48
+Software Manoeuvre — —
+Intellect — —
+Jump Control/4 — —
+Library — —
+Advanced Fire Control/1 — 12
+Anti-Hijack/2 — 8
+Auto-Repair/1 — 5
+Broad Spectrum EW — 14
+Evade/1 — 1
+Point Defence/2 — 12
+Common Areas 96 9.6
+Cargo 52.8 —
+Total: MCr2048.76
+DESTROYER CLASS: MIDU AGASHAM
+228
+PAGE 232
+P.F. SLOAN 
+FLEET ESCORT
+The P. F. Sloan fleet escort is intended for routine 
+fleet security and support. Fleet escorts are 
+assigned in quantity for local or system defence any 
+time several squadrons or a fleet are present.
+FLEET ESCORT CLASS: P.F. SLOAN
+Crew
+Captain, Pilots x3, 
+Small Craft Pilots x3, 
+Astrogator, Engineers 
+x28, Maintenance x9, 
+Medic, Gunners x51, 
+Administrators x4, 
+Officers x11, 
+Sensops x2
+Hull: 2,000
+Running Costs
+MAINTENANCE COST
+Cr246483/month
+PURCHASE COST
+MCr2957.796
+Power Requirements
+Basic Ship Systems
+1,000
+Manoeuvre Drive
+3,000
+Jump Drive
+2,000
+Sensors
+8
+Weapons
+430
+Screens
+100
+Fuel Processor
+50
+Medical Bays
+1
+231
+PAGE 233
+TL15  Tons Cost (MCr)
+Hull 5,000 tons, Standard — 250
+Radiation Shielding — 125
+Armour Bonded Superdense: 15 600 300
+M-Drive Thrust 6 300 600
+J-Drive Jump 4 505 757.5
+Power Plant Fusion (TL15), Power 6,750 337.5 675
+Fuel Tanks J-4, 8 weeks of operation 2,067.5 —
+Bridge Holographic Controls 60 31.25
+Computer Core/70fib — 120
+Sensors Advanced 5 5.3
+Enhanced Signal Processing 2 8
+Countermeasures Suite 2 4
+Weapons Small Missile Bays x2 100 24
+Triple Turrets (beam lasers) x30 30 75
+Point Defence Laser Batteries (Type III) x2 40 40
+Ammunition Missile Storage (240 missiles) 20 —
+Screens Meson Screens x2 20 40
+Nuclear Dampers x2 20 20
+Craft Docking Spaces (50 tons) x3 165 41.25
+Modular Cutters x3 0 35.79
+Systems Armoury 5 1.25
+Briefing Room 4 0.5
+Fuel Processor (1,000 tons/day) 50 2.5
+Fuel Scoops 0 1
+Medical Bay 4 2
+Repair Drones 50 10
+Workshop 6 0.9
+Staterooms Standard x77 308 38.5
+Software Advanced Fire Control/2 — 15
+Anti-Hijack/2 — 8
+Auto-Repair/1 — 5
+Broad Spectrum EW — 14
+Electronic Warfare/1 — 15
+Evade/1 — 1
+Point Defence/2 — 12
+Jump Control/4 — —
+Library — —
+Manoeuvre — —
+Intellect — —
+Common Areas 77 7.7
+Cargo 222 —
+Total: MCr3286.44
+FLEET ESCORT CLASS: P.F. SLOAN
+232
+PAGE 236
+The Skimkish light carrier is relatively slow fighter 
+carrier/tender characterised by a variety of 
+heterogeneous weaponry and a large complement 
+of heavy fighters. Despite its low Thrust, the ship is a 
+workman-like machine with a tough armour shell that 
+enables it to stay in the fight long enough to collect 
+all of its deployed fighters.
+LIGHT CARRIER CLASS: SKIMKISH
+Crew
+Captain, Pilots x3, 
+Fighter Pilots x80, 
+Astrogator, Engineers 
+x108, Maintenance x44, 
+Medics x5, Gunners 
+x352, Administrators x19, 
+Officers x61, Sensops x6
+Hull: 15,950
+Running Costs
+MAINTENANCE COST
+MCr1.637/month
+PURCHASE COST
+MCr19646.955
+Power Requirements
+Basic Ship Systems
+5,800
+Manoeuvre Drive
+5,800
+Jump Drive
+11,600
+Sensors
+14
+Weapons
+3,050
+Screens
+180
+Fuel Processor
+150
+Launch Tube
+100
+Medical Bays
+6
+Recovery Deck
+100
+The Imperial Navy does not emphasise carriers as 
+ships that decide battles, instead pairing carriers 
+with assault and battle squadrons, along with fleet 
+tenders. Fighters screen the launching and recovery 
+of battle riders, while the battle riders themselves, 
+along with cruisers and dreadnoughts, are used to 
+destroy enemy ships of the line; the fighters then 
+ensure they survive recovery operations.
+TL15  Tons Cost (MCr)
+Hull 29,000 tons, Standard — 1450
+Reinforced — 725
+Military — 362.5
+Radiation Shielding — 725
+Armour Bonded Superdense: 18 4,176 2088
+M-Drive Thrust 2 580 1160
+J-Drive Jump 4 2,905 4357.5
+Power Plant Fusion (TL15), Power 18,400 920 1840
+Fuel Tanks J-4, 8 weeks of operation 11,784 —
+Bridge 60 145
+Computer Core/60 — 75
+Sensors Advanced 5 5.3
+Distributed Arrays 10 10.6
+Enhanced Signal Processing 2 8
+Countermeasures Suite 2 4
+Weapons Small Meson Bay 400 200
+Triple Turrets (missile racks) x50 50 162.5
+Triple Turrets (beam lasers) x50 50 125
+Triple Turrets (sandcasters) x50 50 87.5
+Double Turrets (fusion guns) x50 50 225
+Single Turrets (particle beams) x50 50 210
+Point Defence Laser Batteries 
+(Type III) x4
+80 80
+Ammunition Missile Storage (1,500 mis
+PAGE 239
+VALIANT
+LIGHT CRUISER
+The Valiant light cruiser is a recently introduced 
+armoured version of a previous class of ships 
+called the Gionetti, which was named exclusively 
+for posthumous recipients of the Imperial Starburst 
+for Extreme Heroism. The Gionetti was capable of 
+jump-5 but its non-existent armour made it a liability 
+in fleet actions. The running joke was that its crews 
+would soon be ‘posthumous’ as well.
+Crew
+Captain, Pilots x3, Small 
+Craft Crew x5, Astrogator, 
+Engineers x101, 
+Mechanics x40, Marines 
+x20, Medics x3, Gunners 
+x203, Administrators x20, 
+Officers x40, Sensops x8
+Hull: 528
+Running Costs
+MAINTENANCE COST
+MCr1.59/month
+PURCHASE COST
+MCr19104.165
+Power Requirements
+Basic Ship Systems
+6,000
+Manoeuvre Drive
+15,000
+Jump Drive
+12,000
+Sensors Weapons
+15 2012
+Screens Fuel 
+Processor
+180 50
+Medical Bay
+4
+LIGHT CRUISER CLASS: VALIANT
+The ship is currently in favour as a flagship for minor 
+operations and it includes a command bridge for the 
+purpose of leading a squadron of destroyers and 
+destroyer escorts.
+TL15  Tons Cost (MCr)
+Hull 30,000 tons, Standard — 1500
+Reinforced — 750
+Radiation Shielding — 750
+Armour Bonded Superdense: 15 3,600 1800
+M-Drive Thrust 5 (size reduction x3) 1,050 4500
+238
+PAGE 240
+LIGHT CRUISER CLASS: VALIANT
+TL15  Tons Cost (MCr)
+J-Drive Jump 4 (decreased fuel) 3,005 4958.25
+Power Plant Fusion (TL15), Power 24,000 1,200 2400
+Fuel Tanks J-4, 8 weeks of operation 11,640 —
+Bridge Holographic Controls 60 187.5
+Command Bridge 40 30
+Computer Core/100fib — 195
+Sensors Advanced 5 5.3
+Distributed Arrays 10 10.6
+Enhanced Signal Processing 2 8
+Military Countermeasures Suite 15 28
+Weapons Meson Spinal Mount (TL15) 6,000 2600
+Medium Repulsor Bay 100 60
+Triple Turrets (missile racks) x200 200 650
+Triple Turrets (beam lasers) x50 50 187.5
+Triple Turrets (sandcasters) x22 22 38.5
+Point Defence Laser Batteries (Type II) x2 40 20
+Ammunition Missile Storage (9,600 missiles) 800 —
+Sandcaster Canisters Storage (1,320 canisters) 66 —
+Screens Nuclear Dampers (size reduction x3) x9 63 135
+Craft Docking Spaces (50 tons) x5 275 68.75
+Modular Cutters x5 — 59.65
+Systems Armoury 18 4.5
+Briefing Rooms x2 8 1
+Fuel Processor (1,000 tons/day) 50 2.5
+Fuel Scoops — 1
+Medical Bays x4 16 8
+Workshops x2 12 1.8
+Staterooms Standard x265 1,060 132.5
+High 6 0.8
+Software Advanced Fire Control/2 — 15
+Anti-Hijack/3 — 10
+Battle System/2 — 24
+Broad Spectrum EW — 14
+Electronic Warfare/1 — 15
+Launch Solution/3 — 16
+Point Defence/2 — 12
+Jump Control/4 — —
+Library — —
+Manoeuvre — —
+Intellect — —
+Common Areas 267 26.7
+Cargo 320 —
+Total: MCr21226.85
+239
+PAGE 243
+The Ghalalk armoured cruiser is a basic fleet 
+workhorse, undertaking a wide variety of duties 
+in peacetime and supporting the battle fleets in 
+war. The 200 marines carried aboard the Ghalalk 
+constitute a reinforced company, trained in protected 
+forces operations and capable of orbital assaults 
+via the included troop transports, if called upon. A 
+command bridge and extra staterooms are included, 
+ARMOURED CRUISER CLASS: GHALALK
+allowing ships of this class to act as flagships for 
+small fleets on occasion. 
+The Ghalalk is part of a family of cruisers that 
+mount interchangeable 2,600-ton ‘pods’ that provide 
+greater versatility. The Ghalalk mounts four of these 
+pods and this example includes a typical loadout of 
+four identical missile pods. 
+Crew
+Captain, Pilots x3, 
+Astrogator, Engineers 
+x149, Maintenance 
+x50, Gunners x188, 
+Administrators x25, 
+Sensops x8, 
+Troop Transport 
+Crew x8, Officers x42, 
+Medics x6, Stewards 
+x3, Troops x200, 
+Frozen Watch x200
+Power Requirements
+Basic Ship Systems
+10,000
+Manoeuvre Drive
+22,500
+Jump Drive
+20,000
+Sensors
+16
+Weapons
+2444
+Screens
+500
+Fuel Processor
+200
+Medical Bays
+6
+UNREP System
+10
+Low Berths
+20
+Hull: 27,500
+Running Costs
+MAINTENANCE COST
+MCr2.928/month
+PURCHASE COST
+MCr35133.8895
+GHALALK
+ARMOURED 
+CRUISER
+242
+PAGE 244
+TL15  Tons Cost (MCr)
+Hull 50,000 tons, Standard — 2500
+Reinforced — 1250
+Military — 625
+Modular Hull (10,400 tons) — 520
+Armour Bonded Superdense, Armour: 17 6,800 3400
+Radiation Shielding — 1250
+M-Drive Thrust 6 (energy efficient, reduced size x2) 2,400 9000
+J- Drive Jump 4 (reduced fuel x2) 5,005 9384.375
+Power Plant Fusion (TL15), Power 60,000 3,000 6000
+Fuel Tanks J-4, 8 weeks of operation 18,600 —
+Bridge Bridges x2, Holographic Controls 120 625
+Command Bridges x2, Holographic Controls 80 60
+Computer Core/100fib — 195
+Backup Core/90fib — 180
+Sensors Advanced x2 10 10.6
+Distributed Arrays x2 20 21.2
+Military Countermeasures Suites x2 30 56
+Enhanced Signal Processing x2 4 16
+Sensor Stations x8 8 4
+Weapons Particle Accelerator Spinal Mount (improved) 2,800 1300
+Triple Turrets (accurate, high yield beam lasers) x68 68 255
+Triple Turrets (sandcasters) x20 20 35
+Fusion Barbettes (long range, high yield) x12 60 72
+Medium Missile Bays (size reduction x3) x8 560 240
+Large Missile Bays (size reduction x3) x8 2,800 300
+Point Defence Laser Batteries (Type III) x2 40 40
+Ammunition Missile Storage (23,040 missiles) 1,920 —
+Sandcaster Canister Storage (800 canister) 40 —
+Screens Meson Screens x10 100 200
+Nuclear Dampers x10 100 100
+Armoured Manoeuvre Drive 240 48
+Bulkheads Jump Drive 500.5 100.1
+Power Plant 300 60
+Bridges 12 2.4
+Command Bridges 8 1.6
+Sensors 6.4 1.28
+Spinal Mount 280 56
+Medium Bays 56 11.2
+Large Bays 280 56
+Missile Storage 192 38.4
+Meson Screens 10 2
+Nuclear Dampers 10 2
+Craft Full Hangar (240 tons) 480 96
+Troop Transports x4 — 203.2
+ARMOURED CRUISER CLASS: GHALALK
+243
+PAGE 248
+PLANETOID 
+MONITOR
+Incorporating enhanced sensors, and 
+communications, and a new command bridge to 
+allow oversight of all traffic in and around Mora, 
+the Jaellemo stands guard over Mora, inspecting 
+any suspect ships in detail before allowing them to 
+proceed. An upgrade to the Empress Troyhune, the 
+PLANETOID MONITOR
+Jaellemo planetoid monitor is a mighty defender 
+of the unofficial capital of the Spinward Marches. 
+The Jaellemo was completed in 1101, replacing the 
+Empress Troyhune. Travellers to the Mora system 
+must pass under the guns of this imposing ship 
+before being allowed to dock at the highport.
+Crew
+Captain, Pilots x3, Fighter 
+Pilots x30, Engineers x70, 
+Maintenance x34, Medics 
+x7, Gunners x762, Fuel 
+Refinery x3, Administrators 
+x32, Officers x94, Pursers 
+x3, Sensops x6
+TL15  Tons Cost (MCr)
+Hull 50,000 Buffered-Planetoid — 200
+Unusable tonnage 17,500 —
+Radiation Shielding — 812.5
+Armour Bonded Superdense, Armour: 15 3,900.0 1,950
+M-Drive Thrust 6 (size reduction x3) 2,100 9000
+J-Drive — — —
+Power Plant Fusion (TL15), Power: 43,740 2,187 4,374
+Fuel Tanks 24 weeks of operation 1,312 —
+Bridge Holographic Controls 60 203.125
+Command Bridge 40 30
+Computer Core/100fib — 195
+Backup Core/90fib — 180
+Sensors Advanced x3 15 15.9
+Rapid Deployment Extended Arrays 30 63.6
+Enhanced Signal Processing 2 8
+Hull: 31,250
+Running Costs
+MAINTENANCE COST
+MCr2.52/month
+PURCHASE COST
+MCr24625655
+Power Requirements
+Basic Ship Systems
+6,500
+Manoeuvre Drive
+30,000
+Sensors
+308
+Weapons
+3325
+Screens
+450
+Fuel Processor
+50
+Medical Bays
+5
+Launch Tubes
+500
+Recovery Deck
+500
+247
+PAGE 249
+Sensors Military Countermeasures Suite 15 28
+Deep Penetration Scanners (scan 5,000 tons/hr) 250 250
+Mail Distribution Array (advanced) 20 10
+Weapons Meson Spinal Mount (TL15) 12,000 4000
+Triple Turrets (sandcasters) x100 100 193.75
+Triple Turrets (accurate beam lasers) x100 100 325
+Double Turrets (long range, high yield fusion guns) x20 20 130
+Particle Beam Barbettes (intense focus) x30 150 200
+Point Defence Laser Batteries (Type III) x15 300 300
+Ammunition Missile Storage (2,400 missiles) 200 20
+Sandcaster Canister Storage (3,000 canisters) 150 15
+Screens Meson Screens x9 90 180
+Nuclear Dampers x9 90 90
+Armoured Bulkheads Bridge 110 22
+Manoeuvre Drive 210 42
+Power Plant 218.7 43.74
+Meson Spinal Mount 3.0 0.6
+Missile storage 20 4
+Nuclear Damper 9 1.8
+Meson Screen 9 1.8
+Sensors 33.2 6.64
+Craft Docking Spaces (50 tons) x28 1,540 385
+Full Hangars (50 tons) x3 300 60
+Heavy Fighters x30 — 2387.4
+Systems Armoury 25 6.25
+Briefing Rooms x5 20 10
+Brig (12 prisoners) 8 0.25
+Fuel Refinery (1,000 tons/day) 50 25
+Launch Tube 500 500
+Medical Bays x5 20 10
+Recovery Deck 500 500
+Repair Drones 325 65
+UNREP System (1,000 tons/hr) 50 25
+Workshops x3 18 2.7
+Staterooms Standard x685 2,740 —
+High x10 60 —
+Luxury x3 30 —
+Software Advanced Fire Control/3 — 18
+Anti-Hijack/3 — 10
+Auto-Repair/2 — 10
+Battle System/3 — 36
+Broad Spectrum EW — 14
+Electronic Warfare/3 — 24
+Software Evade/3 — 3
+PLANETOID MONITOR
+248
+PAGE 252
+Named for famous battles in Imperial history, the 
+Arakoine strike cruiser is specifically designed for 
+ground support and surface bombardment. It has 
+large missile resources available, as well as both 
+meson gun and particle accelerator weaponry. The 
+ship is supported by its large phalanx of fighter craft. 
+STRIKE CRUISER CLASS: ARAKOINE
+These fighters are capable of close defence for the 
+ship and of ground support in combat.
+The strike cruiser is not capable of fuel skimming, 
+relying upon its auxiliaries and escorts for the fuel 
+scoop process. It does carry on-board fuel purification 
+plants for the processing of fuel. 
+TL15  Tons Cost (MCr)
+Hull 50,000 tons, Dispersed Structure — 1250
+Reinforced — 625
+Radiation Shielding — 1250
+Armour Bonded Superdense, Armour: 3 2,400 1200
+M-Drive Thrust 4 2,000 4000
+J-Drive Jump 3 3,755 5632.5
+Power Plant Fusion (TL15), Power 35,000 1,750 3500
+Fuel Tanks J-3, 8 weeks of operation 15,350 —
+Bridge 60 250
+Computer Core/80fib — 142.5
+Sensors Advanced 5 5.3
+Distributed Arrays 10 10.6
+Improved Signal Processing 1 4
+Countermeasures Suite 2 4
+Weapons Meson Spinal Mount (TL15) 12,000 5200
+Medium Orbital Strike Mass Driver Bay 100 35
+Medium Repulsor Bay 100 60
+Small Missile Bays x40 2,000 480
+Triple Turrets (beam lasers) x40 40 125
+Triple Turrets (sandcasters) x20 20 35
+Ammunition Missile Storage (2,400 missiles) 200 —
+Sandcaster Canister Storage (2,000 
+canister)
+100 —
+Mass Driver Ammunition (300 shots) 1,600 —
+Screens Meson Screens x9 90 180
+Nuclear Dampers x9 90 90
+Craft Docking Spaces (50 tons) x98 5,390 1347.5
+Full Hangars (50 tons) x2 200 40
+Heavy Fighters x100 — 7658
+Systems Armoury 22 5.5
+Briefing Rooms x12 48 6
+Fuel Processor (2,000 tons/day) 100 5
+Launch Tubes x2 200 100
+Medical Bays x5 20 10
+Recovery Decks x2 200 100
+Workshops x6 36 5.4
+Crew
+Captain, Pilots x3, 
+Fighter Pilots x100, 
+Astrogator, Engineers 
+x130, Maintenance x55, 
+Medics x5, Gunners 
+x162, Administrators x25, 
+Officers x50, Sensops x9
+Hull: 24,750
+Running
+PAGE 256
+Named for famous pre-starflight emperors in ancient 
+Vilani and Solomani history, the Hadrian battle 
+rider is a stalwart example of its class: armed and 
+armoured to the teeth and designed to emerge 
+victorious over capital ships that are well above its 
+tonnage. The Hadrian can be deployed by several 
+classes of battle tender but are most often carried by 
+the one million-ton Warmonger-class.
+TL15  Tons Cost (MCr)
+Hull 50,000 tons, Standard — 2500
+Reinforced — 1250
+Hull — 625
+Radiation Shielding — 1250
+Armour Bonded Superdense, Armour: 30 12,000 6000
+M-Drive Thrust 6 3,000 6000
+Power Plant Fusion (TL15), Power 38,000 2,400 4800
+Fuel Tanks 12 weeks of operation 720 —
+Bridge Holographic Controls 60 312.5
+Computer Core/80fib — 142.5
+Sensors Advanced 5 5.3
+Distributed Arrays 10 10.6
+Enhanced Signal Processing 2 8
+Military Countermeasures Suite 15 28
+Weapons Meson Spinal Mount (TL15) 18,000 7800
+Large Particle Beam Bays x6 500 60
+Medium Repulsor Bays x6 600 360
+Medium Missile Bays x50 5,000 1000
+Medium Railgun Bays x25 2.500 1250
+Triple Turrets (beam lasers) x100 100 312.5
+Triple Turrets (sandcasters) x100 100 175
+Point Defence Laser Batteries 
+(Type III) x 9
+180 180
+Ammunition Missile Storage (8,640 missiles) 720 —
+Sandcaster Canister Storage 
+(4,500 canisters)
+375 —
+Railgun Ammunition (6,000 shots) 300 —
+Screens Meson Screens x9 90 180
+Nuclear Dampers x9 90 90
+Craft Docking Spaces (40 tons) x6 264 66
+Pinnaces x6 — 58.08
+Systems Armoury 21 5.25
+Briefing Rooms x4 16 2
+Fuel Scoops — 1
+Medical Bays x5 20 10
+Repair Drones 500 100
+Workshops x4 24 3.6
+BATTLE RIDER CLASS: HADRIAN
+Once deployed, the Hadrian is designed to do battle 
+while its tender refuels or seeks refuge among the 
+fleet. If necessary, the battle rider can skim for fuel 
+from gas giants and remain in the fight for extended 
+periods of time.
+Crew
+Captain, Pilots x3, 
+Small Craft Pilots x6, 
+Astrogator, Engineers 
+x78, Maintenance x50, 
+Medics x5, Gunners 
+x280, Administrators 
+x25, Officers x46, 
+Sensops x9
+
+PAGE 259
+The Azhanti High Lightning is an obsolete multi-
+purpose cruiser capable of a variety of different 
+functions. Most notable is the ship’s high jump (jump-
+5) capability, which gives it great reactive mobility. It 
+is this quality that has kept the ship in service in spite 
+of its inferior agility and weaponry.
+FRONTIER CRUISER CLASS: AZHANTI HIGH-LIGHTNING
+Several examples of the ship have been transferred 
+to the Scout Service and friendly client states. 
+Much of the remaining examples of the class were 
+refurbished to the below specifications and now 
+serve as frontier cruisers on Imperial borders.
+TL14  Tons Cost (MCr)
+Hull 60,000 tons, Standard — 3000
+Reinforced — 1500
+Radiation Shielding — 1500
+Armour Bonded Superdense, Armour: 9 4,320 2160
+M-Drive Thrust 2 1,200 2400
+J-Drive Jump 5 7,505 11257.5
+Power Plant Fusion (TL12), Power 42,750 2,850 2850
+Fuel Tanks J-5, 8 weeks of operation 30,570 —
+Bridge 60 300
+Computer Core/80 — 95
+Sensors Improved 3 4.3
+Distributed Arrays 6 8.6
+Weapons Particle Accelerator Spinal Mount (TL12) 6,300 2200
+Small Missile Bays x24 1,200 288
+Fusion Barbettes x30 150 120
+Triple Turrets (pulse lasers) x150 150 600
+Triple Turrets (sandcasters) x130 130 227.5
+Ammunition Missile Storage (2,880 missiles) 240 —
+Sandcaster Canister Storage (3,900 
+canisters)
+195 —
+Screens Meson Screens x6 60 120
+Nuclear Dampers x5 50 50
+Craft Docking Spaces (40 tons) x5 220 55
+Pinnaces x5 — 48.4
+Docking Spaces (10 tons) x80 880 220
+Light Fighters x80 — 854.4
+Systems Armoury 33 8.25
+Briefing Rooms x7 28 3.5
+Fuel Processor (4,000 tons/day) 200 10
+Fuel Scoops — 1
+Launch Tubes (10 tons) x2 200 100
+Medical Bays x7 28 14
+Recovery Decks (10 tons) x2 200 100
+Workshops x 4 24 3.6
+Crew
+Captain, Pilots x3, 
+Small Craft Crew x85, 
+Astrogator, Engineers 
+x168, Maintenance x61,
+Medics x7, Gunners 
+x377, Administrators 
+x30, Officers x75, 
+Sensops x12
+Hull: 33,000
+Running Costs
+MAINTENANCE COST
+MCr2.28/month
+PURCHASE COST
+MCr27411.345
+Power Requirements
+Basic Ship Systems
+12,0
+PAGE 263
+The Atlantic heavy cruiser is typical of the Imperial 
+designs for such ships: a long flattened structure 
+studded with weaponry, flaring aft for rudimentary 
+control surfaces useful for fuel skimming. Well-
+armed and extremely well-armoured, it fulfils the 
+basic design requirement of meeting the enemy and 
+winning in battle.
+The Atlantic, however, is fast approaching 
+obsolescence and is not the equal of more modern 
+vessels in the Imperium and neighbouring regions. 
+The slight disadvantage of 5G acceleration is telling 
+in otherwise equal engagements and make the 
+class inferior enough to affect strategic judgements 
+concerning its commitment.
+HEAVY CRUISER CLASS: ATLANTIC
+Crew
+Captain, Pilots x3, 
+Small Craft Pilots x3, 
+Astrogator, 
+Engineers x222, 
+Maintenance x75, 
+Medics x6, Gunners 
+x273, Administrators 
+x38, Officers x64, 
+Sensops x15
+Hull: 41,250
+Running Costs
+MAINTENANCE COST
+MCr3.17/month
+PURCHASE COST
+MCr38023.155
+Power Requirements
+Basic Ship Systems
+15,000
+Manoeuvre Drive
+37,500
+Jump Drive
+22,500
+Sensors
+14
+Weapons
+2,705
+Screens
+180
+Fuel Processor
+500
+Medical Bays
+6
+An upgrade program to enhance the class was 
+considered but decided against because of cost, 
+although a number of enhanced prototypes have 
+been reported.
+This class of cruiser has lately proven popular with the 
+Navy for independent missions, especially beyond the 
+Imperial borders. Used alone, the ships are capable of 
+a variety of diplomatic and scientific operations. Used 
+in squadrons, they provide a useful show of force or 
+reinforcement for friendly client-states.
+Reportedly, some examples of the Atlantic have 
+been fitted with black globe force field generators. 
+This has not been confirmed.
+TL14  Tons Cost (MCr)
+Hull 75,000 tons, Standard — 3750
+Reinforced — 1875
+Military — 937.5
+Radiation Shielding — 1875
+Armour Bonded Superdense, Armour: 25 15,000 7500
+M-Drive Thrust 5 3,750 7500
+J-Drive Jump 4 7,505 11257.5
+Power Plant Fusion (TL12), Power 64,500 4,300 4300
+Fuel Tanks J-4, 8 
+PAGE 267
+The Wind strike carrier is a particular artifact of 
+the escalating tensions in the Spinward Marches. 
+Designed and created for the transport of light 
+fighters to the battle front, strike carriers are also well-
+armed, reasonably armoured and capable of standing 
+in battle against most enemies.
+The Wind is capable of entering enemy-held territory, 
+either alone or with a small escort and overwhelming 
+defences by weight of its fighter complement. As 
+standard, its hangars carry 80 light fighters, although 
+variants exist capable of launching heavy fighters 
+or even troop transports. Where the threat level is 
+STRIKE CARRIER CLASS: WIND
+Crew
+Captain, Pilots 
+x3, Fighter Pilots 
+x80, Astrogator, 
+Engineers x202, 
+Maintenance x75, 
+Medics x8, Gunners 
+x469, Administrators 
+x37, Officers x89, 
+Sensops x15
+Hull: 41,250
+Running Costs
+MAINTENANCE COST
+MCr3.67/month
+PURCHASE COST
+MCr44013.555
+Power Requirements
+Basic Ship Systems
+15,000
+Manoeuvre Drive
+45,000
+Jump Drive
+22,500
+Weapons
+6,970
+Sensors
+15
+Screens
+450
+Fuel Processor
+150
+Launch Tube
+100
+Medical Bays
+9
+Recovery Deck
+100
+deemed sufficiently low, a Wind strike carrier may 
+jump into a system, launch fighters, then retreat to 
+a gas giant to refuel while the smaller craft conduct 
+patrols or limited attacks.
+If cornered, the strike carrier is more than capable 
+of defending itself against enemy vessels smaller 
+than itself, even if the bulk of its fighters are engaged 
+elsewhere. A powerful meson spinal mount gives it 
+sufficient punch against capital ships, while batteries 
+of missiles, beam lasers, particle beams and fusion 
+guns provide more than enough firepower to destroy 
+waves of smaller vessels.
+TL15  Tons Cost (MCr)
+Hull 75,000 tons, Close Structure — 3000
+Reinforced — 1500
+Radiation Shielding — 1875
+Armour Bonded Superdense, Armour: 11 9,900 4950
+M-Drive Thrust 6 4,500 9000
+J-Drive Jump 3 5,630 8445
+Power Plant Fusion (TL15), Power 78,000 3,900 7800
+Fuel Tanks J-3, 8 weeks of operation 23,280 —
+Bridge Holo
+PAGE 271
+Also known in naval circles as the mother ship, 
+the fleet carrier is a transport and launch facility 
+for heavy fighters. In peace, the fleet carrier is a 
+mobile port and repair facility for its brood; in war, it 
+is a formidable fleet element to be respected. The 
+fleet carrier depends on its phalanx of 300 fighters 
+for the majority of its protection. Typically, one-third 
+FLEET CARRIER CLASS: ANTIAMA
+Crew
+Captain, Pilots 
+x3, Fighter Crew 
+x600, Astrogator, 
+Engineers x198, 
+Maintenance x75, 
+Medics x11, Gunners 
+x310, Administrators 
+x33, Officers x124, 
+Sensops x12
+Hull: 73,333
+Running Costs
+MAINTENANCE COST
+MCr5.56/month
+PURCHASE COST
+MCr66758.94
+Power Requirements
+Basic Ship Systems
+20,000
+Manoeuvre Drive
+20,000
+Jump Drive
+40,000
+Sensors
+15
+Weapons
+6,295
+Screens
+450
+Fuel Processor
+400
+Launch Tubes
+1,500
+Medical Bays
+12
+Recovery Decks
+1,500
+of the fighter force is in flight at any one time. In 
+addition, the ship can defend itself with its extensive 
+armament – especially its missile salvos. In practice, 
+the fleet carrier’s low armour rating and agility make 
+it vulnerable and clumsy in battle and it will join 
+combat only to ensure recovery of its brood.
+TL15  Tons Cost (MCr)
+Hull 100,000 tons, Standard — 5000
+Reinforced — 2500
+Radiation Shielding — 2500
+Armour Bonded Superdense, Armour: 10 8,000 4000
+M-Drive Thrust 2 2,000 4000
+J-Drive Jump 4 10,005 15007.5
+Power Plant Fusion (TL15), Power 85,000 4,250 8500
+Fuel Tanks J-4, 8 weeks of operation 40,850 —
+Bridge Holographic Controls 60 625
+Computer Core/60 — 75
+Sensors Advanced 5 5.3
+Distributed Arrays 10 10.6
+Enhanced Signal Processing 2 8
+Military Countermeasures Suite 15 28
+Weapons Medium Meson Bay 100 60
+Medium Particle Beam Bay 100 40
+Medium Repulsor Bay 100 60
+Small Missile Bays x65 3,250 780
+Small Fusion Gun Bays x65 3,250 520
+Triple Turrets (beam lasers) x160 160 500
+Triple Turrets (sandcasters) x160 160 240
+Point Defence Laser Batteries 
+(Type III) x10
+200 200
+Ammunition Missile Storage (7,800 missi
+PAGE 275
+GALIKA MEGULA 
+FREIGHTER
+The Galika Megula dates back to the late First 
+Imperium. Most examples in service really are that old, 
+although many were mothballed for centuries at a time 
+during the Long Night. Constructing one is a major 
+affair involving multiple shipyards for over 10 years.
+These freighters were originally designed to promote 
+Vilani mercantile interests to ‘barbarian’ homeworlds 
+Crew
+Pilot, Astrogator, 
+Engineers x185, 
+Mechanics x66, Medics 
+x2, Administrators x33, 
+Sensor Operators x8, 
+Officers x14
+Hull: 72,000
+Running Costs
+MAINTENANCE COST
+MCr2.72/month
+PURCHASE COST
+MCr32657.904
+Power Requirements
+Basic Ship Systems
+40,000
+Manoeuvre Drive
+40,000
+Jump Drive
+40,000
+Medical Bay
+2
+Biospheres
+155
+Fuel Processor
+1,000
+FREIGHTER CLASS: GALIKA MEGULA
+that could sustain high volumes of trade but could 
+not be trusted to maintain good starports, thus the 
+ability to conduct wilderness refuelling if necessary, 
+unusual among more modern freighters. At the time, 
+jump-2 showcased the height of Vilani technological 
+superiority. In modern times, these two elements see 
+it conducting trade along the Imperial frontier, often 
+the largest ship a world will ever see.
+TL11  Tons Cost (MCr)
+Hull 200,000 tons, Sphere, Light Hull — 5500
+M-Drive Thrust 2 4,000 8000
+J-Drive Jump 2 10,005 15007.5
+Power Plant Fusion (TL8, size reduction x 3), 
+Power 81150
+5,680.5 4260.375
+Fuel Tanks J-2, 4 weeks of operation 40569 —
+Bridge  60 1000
+Computer Computer/10 — 0.16
+Sensors Basic, Distributed Arrays — —
+Systems Fuel Processor (20,000 tons/day) 1,000 50
+ Fuel Scoops —  1
+ Cargo Crane 458 458 
+ Medical Bay x2 8 4
+ Workshop 198 22.7
+ Biospheres 155 31
+Staterooms Standard x1580 632 79
+ High x4 24 3.2
+Software Manoeuvre — —
+ Jump Control/2 — 0.2
+ Library — —
+Intellect — —
+Common 
+Areas
+ 328 32.8
+Cargo 136,882.5 —
+Total: MCr36286.56
+ 
+274
+
+PAGE 277
+The Kokirrak dreadnought is one of the more common 
+classes of capital ships in service in the Spinward 
+Marches; a total of four BatRons of this type serve 
+on permanent station, with harbour assignments at 
+Rhylanor, Regina, Jewell and Mora. Generally, one 
+squadron of Kokirraks is dispersed into independent 
+ships with ancillary escorts. On patrol, the ships 
+combine training operations with routine patrols and 
+reaction operations.
+The Kokirrak is a preferred ship for flagship operations 
+due to its extensive admiral’s quarters, which include 
+command and communications equipment, as well 
+DREADNOUGHT CLASS: KOKIRRAK
+as entertainment chambers. The ship is capable of 
+controlling a large fleet engagement within a system, 
+as well as holding its own in battle; the combination 
+of fleet controller and line-of-battle ship makes it an 
+asset in nearly any space combat situation.
+The Kokirraks are one of the older classes of 
+dreadnoughts in Imperial service and are now being 
+phased out of service. Within the last decade, several 
+ships have been disposed of to other services, such 
+as the scouts, and to other governments, including 
+sector navies and client-states in the Spinward border 
+regions of the Imperium.
+TL15  Tons Cost (MCr)
+Hull 200,000 tons, Standard — 10000
+Reinforced — 5000
+Radiation Shielding — 5000
+Armour Bonded Superdense, Armour: 15 24,000 12000
+M-Drive Thrust 6 12,000 24000
+J-Drive Jump 4 (size reduction x2) 16,004 37509.375
+Power Plant Fusion (TL15), Power 180,000 9,000 18000
+Fuel Tanks J-4, 16 weeks of operation 83,600 —
+Bridge Holographic Controls 80 1250
+Command Bridge 40 30
+Computer Core/90 — 120
+Backup Core/80 — 95
+Sensors Advanced x 2 10 10.6
+Distributed Arrays 10 10.6
+Enhanced Signal Processing 2 8
+Military Countermeasures Suite 15 28
+Weapons Meson Spinal Mount (TL15) 30,000 13000
+Small Missile Bays x50 2,500 600
+Small Fusion Gun Bays x50 2,500 400
+Triple Turrets (long range beam 
+lasers) x300
+300 937.5
+Triple Turrets (sandcasters) x200 200
+PAGE 281
+The Plankwell dreadnought is a more specialised 
+ship than the multi-task oriented Tigress-class. 
+Lacking the large fighter screen, the Plankwell fulfils 
+a more traditional battleship role, as the centre of a 
+fleet of supporting ships.
+For decades, the Imperial Fleet in the Spinward 
+Marches has included at least one BatRon of 
+Plankwell ships but recently (1102), the last such 
+squadron was rotated to the strategic reserve in 
+Corridor Sector. Sentiment in Naval and Sector 
+DREADNOUGHT CLASS: PLANKWELL
+circles runs high in favour of the return of at least 
+one BatRon to the Marches.
+Plankwell dreadnoughts are named for notable 
+admirals in the Imperial Navy. The class name is 
+taken from Grand Admiral Olav hault-Plankwell, a 
+sector admiral in the Spinward Marches who rose to 
+Grand Admiral of the Marches and lead the defeat of 
+the Outworld Coalition during the First Frontier War 
+(589 to 604). Following his victory in 604, he led the 
+fleet to the Core, personally dispatched the Empress 
+Jaqueline I, and took over the government.
+Crew
+Captain, Pilots x3, 
+Small Craft Crew x600, 
+Astrogator, Engineers 
+x360, Maintenance x132, 
+Medics x11, Gunners 
+x568, Administrators x66, 
+Officers x117, 
+Sensops x25
+Hull: 146,666
+Running Costs
+MAINTENANCE COST
+MCr9.44/month
+PURCHASE COST
+MCr113329.035
+Power Requirements
+Basic Ship Systems
+40,000
+Manoeuvre Drive
+100,000
+Jump Drive
+80,000
+Sensors
+15
+Weapons
+15,200
+Screens
+270
+Fuel Processor
+1,250
+Medical Bays
+11
+TL15  Tons Cost (MCr)
+Hull 200,000 tons, Standard — 10000
+Reinforced — 5000
+Military — 2500
+Radiation Shielding — 5000
+Armour Bonded Superdense, Armour: 21 33,600 16800
+M-Drive Thrust 5 10,000 20000
+J-Drive Jump 4 20,005 30007.5
+Power Plant Fusion (TL15), Power 165,000 8,250 16500
+Fuel Tanks J-4, 16 weeks of operation 83,300 —
+Bridge Holographic Controls 80 1250
+Command Bridge 40 30
+Computer Core/90 — 120
+Backup Core/80 — 95
+Sensors Advanced x 2 10 10.6
+Distributed Arrays 10 10.6
+Enhanced Signal Processing 2 8
+Military 
+PAGE 285
+,
+DREADNOUGHT CLASS: TIGRESS
+Crew
+Captain, Pilots x3, 
+Small Craft Crew x600, 
+Astrogator, Engineers
+x922, Maintenance x339, 
+Medics x23, Gunners 
+x509, Administrators 
+x165, Officers x262,
+Sensops x65
+Hull: 366,666
+Running Costs
+MAINTENANCE COST
+MCr29.74/month
+PURCHASE COST
+MCr356884.5735
+Although some older battleships of greater 
+displacement remain in service, the Tigress 
+dreadnought is the largest line-of-battle vessel 
+currently in service with the Imperial Navy in the 
+Spinward Marches. Each BatRon of Tigress-class 
+vessels is virtually a fleet unto itself, as each ship 
+carries 30 squadrons of heavy fighters (with 10 FHs 
+per squadron). A BatRon of eight ships carries 2,400 
+heavy fighters.
+At present, only one Tigress BatRon is deployed in 
+the Spinward Marches, assigned to 212
+th Fleet, at 
+Rhylanor. Additional Tigress BatRons are generally 
+assigned one per sector.
+Within the sphere, layered decks hold the various 
+on-ship functions such as quarters, computer 
+and electronic equipment, fuel treatment and 
+maintenance areas. Appended to the back of the 
+sphere is a large heavy fighter launch and recovery 
+installation. Fighters are launched to the rear, to 
+starboard, and recovered from the rear, to port; this 
+arrangement prevents them from entering the meson 
+beam when it is in use, as well as providing some 
+armoured bulk between the fighters and the enemy.
+Note all the software cannot run at its full rating 
+together. What is running is determined by the needs of 
+the crew at a given time. A full crew is carried but virtual 
+software may be used, if necessary, due to losses.
+TL15  Tons Cost (MCr)
+Hull 500,000 tons, Standard — 25000
+Reinforced — 12500
+Military — 6250
+Radiation Shielding — 12500
+Armour Bonded Superdense, Armour: 17 68,000 34000
+M-Drive Thrust 6 (size reduction x3) 21,000 90000
+J-Drive Jump 4, (fuel efficient x2) 50,005 93759.375
+Power Plant Fusion (TL15), Power 440,000 22,000 44000
+Fuel Tanks J-4, 20 weeks of operation 191,000 —
+Bridge 
+PAGE 286
+DREADNOUGHT CLASS: TIGRESS
+Screens Meson Screens x7 70 140
+Nuclear Dampers x9 90 90
+Armoured Bridge 14 2.8
+Bulkheads Jump Drive 50,00.5 1000.1
+Manoeuvre Drive 2,100 420
+Power Plant 2,200 440
+Missiles 64 12.8
+Meson Screen 7 1.4
+Nuclear Damper 9 1.8
+Sensors 6.2 1.24
+Small Missile Bays x430 1,505 301
+Meson Spinal Mount (TL15) 6,600 1320
+Craft Docking Spaces (50 tons) x285 15,675 3918.75
+Full Hangars (50 tons) x15 1,500 300
+Heavy Fighters x300 — 22974
+Systems Armoury 117 29.25
+Briefing Rooms x20 80 10
+Fuel Processor (50,000 tons/day) 2,500 125
+Launch Tubes x3 1,500 750
+Medical Bays x25 100 50
+Recovery Decks x3 1,500 750
+Repair Drones 5,000 1000
+Workshops x12 72 10.8
+Staterooms Standard x1,775 7,100 887.5
+High x3 18 2.4
+Software Advanced Fire Control/3 — 18
+Anti-Hijack/3 — 10
+Auto-Repair/2 — 10
+Battle System/3 — 36
+Broad Spectrum EW — 14
+Electronic Warfare/3 — 24
+Evade/3 — 3
+Jump Control/4 — —
+Launch Solution/3 — 16
+Library — —
+Manoeuvre — —
+Intellect — —
+Screen Optimiser — 5
+Virtual Crew/2 — 10
+Virtual Gunner/2 — 10
+Common 
+Areas
+1,780 178
+Cargo 7,555.3 —
+Total: MCr396538.415
+Power Requirements
+Basic Ship Systems
+100,000
+Manoeuvre Drive
+300,000
+Jump Drive
+200,000
+Sensors
+15
+Weapons
+22,450
+Screens
+390
+Fuel Processor
+2,500
+Medical Bays
+25
+Launch Tubes
+1,500
+Recovery Decks
+1,500
+285
+
+PAGE 289
+Accommodations 50
+Actions Step 121
+Administrator 85
+Altering Tech Levels 70
+Armoured Cruiser 242
+Astrogator 87
+Attack Step 117
+Attacks 124
+Barbettes 29
+Battle Rider 254
+Bays 31
+Black Globe Generator 41
+Bridge 51
+Captain 88
+Cargo 52
+Cargo Carrier 222
+Celestial Terrain 124
+Close Escort 181
+Cockpits 19
+Colonial Cruiser 215
+Command Bridges 19
+Common Areas and Living Space   24
+Computer Cores 20
+Conducting a Boarding Action 125
+Construction 64
+Construction Times 8
+Corsair 195
+Costs 8
+Cutter Modules 145
+Definitions 5
+Destroyer 227
+Destroyer Escort 206, 211
+Dogfighting  03
+Double Occupancy 24
+Dreadnought 280, 284, 288
+Drives 45
+Drones 54
+Emergency Low Berths 24
+Engineer 89
+Express Boat 158
+External Systems 56
+Far Trader 167, 169
+Fleet Carrier 273
+Fleet Combat Steps 115
+Fleet Courier 183
+Fleet Crews 105
+Fleet Escort 231
+Fleet Evaluation 110
+Fleet Manoeuvres 122
+Fleet Sheet, Fleet Ship Sheet 105
+Forced Boarding 128
+Free Trader 171
+Freighter 277
+Frontier Cruiser 259
+Fuel 48
+Gunner 90
+Heavy Cruiser 265
+Heavy Fighter 148
+Hull Configuration 10
+Imperial Naval Operations 4
+Initial Detection 76
+Install Armour 12
+Install Hull Options 13
+Internal Systems 58
+Jump Drives 18
+Jump Shuttle 177
+Laboratory Ship 185
+Launch 139
+Large Ships 22
+Light Carrier 235
+Light Cruiser 238
+Light Fighter 137
+Low Berths 24
+Maintenance 92
+Manoeuvre Step 115
+Manoeuvring 18
+Marines and Ship’s Troops 92
+Medic 93
+Mercenary Cruiser 201
+Merchant Cruiser 217
+Meson Screen 41
+Military Gig 138
+Missiles 36
+Modular Cutter 144
+Modular Hull 43
+Movement 124
+New Drives 799
+New Options 83
+New Screens 81
+New Weapons 81
+Nuclear Damper 41
+Number of Weapons 26
+Officer 94
+Passenger Shuttle 156
+Patrol Corvette 187
+Pilot 94
+Pinnace 142
+Planetary Navies 4
+planetoid monitor 247
+Point Defence 104
+Point-Defence Weapons 40
+Power 44
+Power Plants 18
+Power Requirements 17
+Prospecting Buggy 164
+Psionic Technology 84
+Recovery 104
+Refitting Ships 72
+Routine Inspections 125
+Safari Ship 173
+Sandcasters 38
+Scout 165
+Scout Courier 160
+Screens 40
