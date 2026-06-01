@@ -169,6 +169,142 @@ CRIT_TABLE: dict[str, list[str]] = {
 }
 
 
+# ── Missile flight times (rounds to arrive) per range band ────────────────
+# High Guard 2022 — missiles travel at a fixed speed regardless of thrust
+MISSILE_FLIGHT_ROUNDS: dict[RangeBand, int] = {
+    RangeBand.adjacent: 0,   # immediate (point-blank)
+    RangeBand.close:    1,
+    RangeBand.short:    1,
+    RangeBand.medium:   2,
+    RangeBand.long:     2,
+    RangeBand.very_long:3,
+    RangeBand.distant:  3,
+}
+
+MISSILE_WEAPON_TYPES = {
+    "missile_rack", "missile_barbette", "missile_bay",
+    "torpedo", "torpedo_bay",
+}
+
+
+def missile_flight_rounds(range_band: RangeBand) -> int:
+    return MISSILE_FLIGHT_ROUNDS.get(range_band, 3)
+
+
+def resolve_point_defence(
+    gunner_skill: int,
+    missiles_in_salvo: int,
+    weapon_type: str = "beam_laser",
+) -> dict:
+    """
+    Attempt to shoot down incoming missiles with point-defence fire.
+    Per High Guard: roll 8+ to hit each missile, DM from gunner skill.
+    Beam lasers get no penalty. Pulse lasers get DM-1. Particle beams not usable.
+    Returns number of missiles destroyed and roll details.
+    """
+    # Point defence DM by weapon type
+    pd_dm = {
+        "beam_laser": 0,
+        "pulse_laser": -1,
+        "laser_drill": 0,
+    }.get(weapon_type, -2)   # other weapons are poor at point defence
+
+    rolls = []
+    destroyed = 0
+    for i in range(missiles_in_salvo):
+        roll = roll_2d6()
+        total = roll + gunner_skill + pd_dm
+        hit = total >= 8
+        if hit:
+            destroyed += 1
+        rolls.append({"missile": i + 1, "roll": roll, "total": total, "destroyed": hit})
+
+    return {
+        "missiles_in_salvo": missiles_in_salvo,
+        "missiles_destroyed": destroyed,
+        "missiles_surviving": missiles_in_salvo - destroyed,
+        "rolls": rolls,
+        "weapon_pd_dm": pd_dm,
+    }
+
+
+def resolve_missile_arrival(
+    range_band: RangeBand,
+    gunner_skill: int,
+    target_hull_tons: int,
+    target_armor: int,
+    weapon_damage_dice: int,
+    weapon_damage_dm: int,
+    weapon_damage_multiple: int,
+    missiles_total: int,
+    missiles_destroyed: int,
+    sand_dm: int,                  # accumulated DM from sandcasters (negative)
+    evasive_action: bool,
+    sensor_dm: int = 0,
+    target_screens: list[str] | None = None,
+) -> dict:
+    """
+    Resolve a missile salvo arriving at its target.
+    Called after flight time has elapsed and defences have been applied.
+    """
+    surviving = max(0, missiles_total - missiles_destroyed)
+    if surviving == 0:
+        return {
+            "surviving_missiles": 0,
+            "hit": False,
+            "damage": 0,
+            "critical": False,
+            "message": "All missiles destroyed by point defence",
+        }
+
+    # Each surviving missile makes an attack roll; treat as one salvo
+    attack_roll = roll_2d6()
+    range_dm    = WEAPON_RANGE_DMS.get("missile_rack", {}).get(range_band, 0)
+    size_dm     = ship_size_dm(target_hull_tons)
+    evasive_dm  = -2 if evasive_action else 0
+
+    total_dm = gunner_skill + range_dm + size_dm + evasive_dm + sensor_dm + sand_dm
+    total    = attack_roll + total_dm
+    effect   = total - 8
+    hit      = total >= 8
+    damage   = 0
+    critical = False
+    screen_blocked = False
+
+    if hit:
+        # Each surviving missile adds to damage
+        raw = sum(roll_d6(weapon_damage_dice) for _ in range(surviving))
+        raw = (raw + weapon_damage_dm * surviving) * weapon_damage_multiple
+        # Apply screens
+        if target_screens:
+            for screen, protected in SCREEN_PROTECTION.items():
+                if screen in target_screens and "missile_rack" in protected:
+                    raw = max(0, raw - SCREEN_REDUCTION * surviving)
+                    screen_blocked = True
+        damage   = max(0, raw - target_armor)
+        critical = effect >= 6
+
+    return {
+        "surviving_missiles": surviving,
+        "attack_roll": attack_roll,
+        "total_dm": total_dm,
+        "total": total,
+        "effect": effect,
+        "hit": hit,
+        "damage": damage,
+        "critical": critical,
+        "screen_blocked": screen_blocked,
+        "breakdown": {
+            "range_dm": range_dm,
+            "size_dm": size_dm,
+            "gunner_skill": gunner_skill,
+            "evasive_dm": evasive_dm,
+            "sand_dm": sand_dm,
+            "sensor_dm": sensor_dm,
+        },
+    }
+
+
 def resolve_critical(effect: int) -> dict:
     """Roll on the critical hit table. Effect determines severity (1-6)."""
     severity = min(6, max(1, effect - 5))  # effect 6=sev1, effect 11=sev6

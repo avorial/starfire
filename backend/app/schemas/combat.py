@@ -62,3 +62,25 @@ class ManeuverAction(BaseModel):
     thrust_spent: int
     current_range_band: RangeBand
     target_range_band: RangeBand
+
+
+class MissileResolveAction(BaseModel):
+    """Resolve a missile salvo that has arrived at its target."""
+    attacker_ship_id: int
+    target_ship_id: int
+    weapon_id: int
+    gunner_skill: int = 0
+    range_band: RangeBand
+    # Accumulated defence DMs applied during flight
+    sand_dm: int = 0          # each sandcaster salvo: -2
+    missiles_destroyed: int = 0   # missiles shot down by point defence
+    missiles_total: int = 1       # total missiles in salvo
+    evasive_target: bool = False
+
+
+class PointDefenceAction(BaseModel):
+    """One point-defence attempt against incoming missiles."""
+    defender_ship_id: int
+    defence_weapon_id: int    # the beam laser / point-defence weapon being used
+    gunner_skill: int = 0
+    missiles_in_salvo: int = 1

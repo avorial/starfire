@@ -8,7 +8,7 @@ from app.models.combat import Fleet, FleetMember, Battle, BattleRound
 from app.models.ship import Ship, Weapon  # noqa: F401
 from app.schemas.combat import (
     FleetCreate, FleetRead, BattleCreate, BattleRead,
-    AttackAction, ManeuverAction,
+    AttackAction, ManeuverAction, MissileResolveAction, PointDefenceAction,
 )
 from app.services import rules_engine
 
@@ -159,6 +159,80 @@ async def resolve_attack(action: AttackAction, db: AsyncSession = Depends(get_db
 
     # Resolve critical hit details if triggered
     if result["critical"]:
+        result["critical_details"] = rules_engine.resolve_critical(result["effect"])
+
+    return result
+
+
+@router.post("/missile/flight-time")
+async def missile_flight_time(range_band: str):
+    """How many rounds until missiles at this range band arrive."""
+    from app.models.combat import RangeBand as RB
+    try:
+        rb = RB(range_band)
+    except ValueError:
+        raise HTTPException(status_code=400, detail=f"Invalid range band: {range_band}")
+    return {"range_band": range_band, "rounds": rules_engine.missile_flight_rounds(rb)}
+
+
+@router.post("/missile/point-defence")
+async def point_defence(action: PointDefenceAction, db: AsyncSession = Depends(get_db)):
+    """Attempt to shoot down incoming missiles with a point-defence weapon."""
+    weapon = (await db.execute(
+        select(Weapon).where(Weapon.id == action.defence_weapon_id)
+    )).scalar_one_or_none()
+    if not weapon:
+        raise HTTPException(status_code=404, detail=f"Weapon id={action.defence_weapon_id} not found")
+
+    result = rules_engine.resolve_point_defence(
+        gunner_skill=action.gunner_skill,
+        missiles_in_salvo=action.missiles_in_salvo,
+        weapon_type=weapon.weapon_type.value,
+    )
+    if result["missiles_destroyed"] > 0 and result["missiles_destroyed"] < action.missiles_in_salvo:
+        result["critical_details"] = None
+    return result
+
+
+@router.post("/missile/resolve")
+async def resolve_missile(action: MissileResolveAction, db: AsyncSession = Depends(get_db)):
+    """Resolve a missile salvo that has arrived at its target."""
+    weapon = (await db.execute(
+        select(Weapon).where(Weapon.id == action.weapon_id)
+    )).scalar_one_or_none()
+    if not weapon:
+        raise HTTPException(status_code=404, detail=f"Weapon id={action.weapon_id} not found")
+
+    target = (await db.execute(
+        select(Ship).options(selectinload(Ship.weapons)).where(Ship.id == action.target_ship_id)
+    )).scalar_one_or_none()
+    if not target:
+        raise HTTPException(status_code=404, detail=f"Target ship id={action.target_ship_id} not found")
+
+    attacker = (await db.execute(
+        select(Ship).where(Ship.id == action.attacker_ship_id)
+    )).scalar_one_or_none()
+
+    target_screens = [w.weapon_type.value for w in target.weapons
+                      if w.weapon_type.value in {"nuclear_damper", "meson_screen", "black_globe"}]
+
+    result = rules_engine.resolve_missile_arrival(
+        range_band=action.range_band,
+        gunner_skill=action.gunner_skill,
+        target_hull_tons=target.hull_tons,
+        target_armor=target.armor_value,
+        weapon_damage_dice=weapon.damage_dice,
+        weapon_damage_dm=weapon.damage_dm,
+        weapon_damage_multiple=weapon.damage_multiple,
+        missiles_total=action.missiles_total,
+        missiles_destroyed=action.missiles_destroyed,
+        sand_dm=action.sand_dm,
+        evasive_action=action.evasive_target,
+        sensor_dm=attacker.sensor_dm if attacker else 0,
+        target_screens=target_screens,
+    )
+
+    if result.get("critical") and result.get("effect"):
         result["critical_details"] = rules_engine.resolve_critical(result["effect"])
 
     return result

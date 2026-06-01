@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchBattle, fetchBattleShips, rollInitiative, resolveAttack } from "../api/combat";
 import type { BattleShipEntry, InitiativeEntry } from "../api/combat";
 import HexCombatMap, { type HexShip, hexDist as hexDistance, distToRangeBand } from "../components/HexCombatMap";
+import MissilesPanel, { type MissileInFlight, missileFlightRounds } from "../components/MissilesPanel";
 import type { RangeBand, BattleShipState, AttackResult, Ship, Weapon } from "../types";
 
 function defaultState(ship: Ship, idx: number, side: "a" | "b"): BattleShipState {
@@ -31,6 +32,7 @@ export default function BattleView() {
   const [ammo, setAmmo]                         = useState<Record<number, number>>({});  // weapon_id → remaining
   const [panelOpen, setPanelOpen]               = useState(true);
   const [round, setRound]                       = useState(1);
+  const [missiles, setMissiles]                 = useState<MissileInFlight[]>([]);
   const [initiative, setInitiative]             = useState<InitiativeEntry[]>([]);
   const [showInitiative, setShowInitiative]     = useState(false);
 
@@ -97,6 +99,69 @@ export default function BattleView() {
   }
 
   // ── Attack ────────────────────────────────────────────────────────────
+  const MISSILE_TYPES = new Set(["missile_rack","missile_barbette","missile_bay","torpedo","torpedo_bay"]);
+
+  function fireWeapon() {
+    if (!selectedShipId || !selectedTargetId || !selectedWeaponId) return;
+    const atk = ships.find(s => s.id === selectedShipId);
+    const tgt = ships.find(s => s.id === selectedTargetId);
+    const wpn = atk?.weapons.find((w: Weapon) => w.id === selectedWeaponId);
+    if (!atk || !tgt || !wpn) return;
+
+    // Missile weapons — put in flight instead of resolving immediately
+    if (MISSILE_TYPES.has(wpn.weapon_type)) {
+      const flightRounds = missileFlightRounds(autoRange);
+      const ammoRemaining = wpn.ammo_count > 0 ? (ammo[wpn.id] ?? wpn.ammo_count) : 999;
+      const salvoSize = Math.min(ammoRemaining, wpn.count ?? 1); // count = number of racks
+
+      if (salvoSize <= 0) { setAttackError("Out of missiles!"); return; }
+
+      const missile: MissileInFlight = {
+        id: `${Date.now()}-${Math.random()}`,
+        attacker_ship_id: atk.id, attacker_name: atk.name,
+        weapon_id: wpn.id, weapon_name: wpn.name, weapon_type: wpn.weapon_type,
+        gunner_skill: gunnerSkill,
+        damage_dice: wpn.damage_dice, damage_dm: wpn.damage_dm,
+        damage_multiple: wpn.damage_multiple,
+        ammo_used: salvoSize,
+        target_ship_id: tgt.id, target_name: tgt.name,
+        fired_round: round,
+        arrival_round: flightRounds === 0 ? round : round + flightRounds,
+        range_band: autoRange,
+        sand_dm: 0, missiles_destroyed: 0,
+        evasive_target: positions[tgt.id]?.evasive ?? false,
+      };
+
+      if (flightRounds === 0) {
+        // Point-blank — resolve immediately
+        setMissiles(m => [...m, missile]);
+        setLog(l => [`R${round}: ${atk.name} fires ${salvoSize}× ${wpn.name} at ${tgt.name} — IMMEDIATE IMPACT (adjacent range)`, ...l]);
+      } else {
+        setMissiles(m => [...m, missile]);
+        setLog(l => [`R${round}: ${atk.name} fires ${salvoSize}× ${wpn.name} at ${tgt.name} — arrives in ${flightRounds} round(s)`, ...l]);
+      }
+
+      // Deduct ammo
+      if (wpn.ammo_count > 0)
+        setAmmo(prev => ({ ...prev, [wpn.id]: Math.max(0, (prev[wpn.id] ?? wpn.ammo_count) - salvoSize) }));
+
+      setAttackError(null);
+      return;
+    }
+
+    // All other weapons — resolve immediately
+    attackMutation.mutate({
+      battle_id: battleId,
+      attacker_ship_id: selectedShipId,
+      target_ship_id: selectedTargetId,
+      weapon_id: selectedWeaponId,
+      gunner_skill: gunnerSkill,
+      pilot_skill: 0, dogfight_dm: 0,
+      evasive_target: positions[selectedTargetId]?.evasive ?? false,
+      range_band: autoRange,
+    });
+  }
+
   const attackMutation = useMutation({
     mutationFn: resolveAttack,
     onSuccess: (result) => {
@@ -111,29 +176,27 @@ export default function BattleView() {
         : "MISS";
       line += ` (2d6=${result.attack_roll}+${result.total_dm}=${result.total})`;
       setLog(l => [line, ...l]);
-
-      // Deduct ammo for weapons that use it
-      if (result.hit && wpn && wpn.ammo_count > 0) {
+      if (wpn && wpn.ammo_count > 0)
         setAmmo(prev => ({ ...prev, [wpn.id]: Math.max(0, (prev[wpn.id] ?? wpn.ammo_count) - 1) }));
-      }
-
-      // Apply damage to target
-      if (result.hit && selectedTargetId != null) {
-        setPositions(p => ({
-          ...p,
-          [selectedTargetId]: {
-            ...p[selectedTargetId],
-            hull_remaining: Math.max(0, (p[selectedTargetId]?.hull_remaining ?? 0) - result.damage),
-            disabled: (p[selectedTargetId]?.hull_remaining ?? 0) - result.damage <= 0,
-          },
-        }));
-      }
+      if (result.hit && selectedTargetId != null)
+        applyDamage(selectedTargetId, result.damage);
     },
     onError: (err: unknown) => {
       const msg = err instanceof Error ? err.message : String(err);
       setAttackError(`Attack failed: ${msg}`);
     },
   });
+
+  function applyDamage(targetId: number, damage: number) {
+    setPositions(p => ({
+      ...p,
+      [targetId]: {
+        ...p[targetId],
+        hull_remaining: Math.max(0, (p[targetId]?.hull_remaining ?? 0) - damage),
+        disabled: (p[targetId]?.hull_remaining ?? 0) - damage <= 0,
+      },
+    }));
+  }
 
   // ── Initiative ────────────────────────────────────────────────────────
   const initiativeMutation = useMutation({
@@ -155,6 +218,8 @@ export default function BattleView() {
       });
       return next;
     });
+    // Advance all missiles one round closer
+    setMissiles(prev => prev.filter(m => m.missiles_destroyed < m.ammo_used));
     setLog(l => [`── Round ${round + 1} begins ──`, ...l]);
     setSelectedShipId(null);
     setSelectedTargetId(null);
@@ -283,6 +348,31 @@ export default function BattleView() {
             </Panel>
           )}
 
+          {/* Missiles in flight */}
+          <MissilesPanel
+            missiles={missiles}
+            currentRound={round}
+            ships={ships}
+            onMissileDestroyed={id => setMissiles(m => m.filter(x => x.id !== id))}
+            onMissileResolved={(id, result) => {
+              setLastResult(result as unknown as AttackResult);
+              if (result.hit && result.damage) {
+                const m = missiles.find(x => x.id === id);
+                if (m) applyDamage(m.target_ship_id, result.damage);
+              }
+              // Remove fully resolved missiles
+              if ((result.surviving_missiles ?? 0) <= 0 || result.hit || result.message)
+                setMissiles(m => m.filter(x => x.id !== id));
+              else
+                setMissiles(m => m.map(x => x.id === id
+                  ? { ...x, missiles_destroyed: x.ammo_used - (result.surviving_missiles ?? 0) }
+                  : x));
+            }}
+            onSandcaster={id => setMissiles(m => m.map(x => x.id === id ? { ...x, sand_dm: x.sand_dm - 2 } : x))}
+            onLog={line => setLog(l => [line, ...l])}
+            onDamage={applyDamage}
+          />
+
           {/* Attack */}
           {attacker && target && (
             <Panel>
@@ -326,17 +416,7 @@ export default function BattleView() {
               <button
                 disabled={!selectedWeaponId || attackMutation.isPending}
                 onMouseDown={e => e.stopPropagation()}
-                onClick={() => attackMutation.mutate({
-                  battle_id: battleId,
-                  attacker_ship_id: selectedShipId!,
-                  target_ship_id: selectedTargetId!,
-                  weapon_id: selectedWeaponId!,
-                  gunner_skill: gunnerSkill,
-                  pilot_skill: 0,
-                  dogfight_dm: 0,
-                  evasive_target: targetIsEvasive,
-                  range_band: autoRange,
-                })}
+                onClick={fireWeapon}
                 style={{ width: "100%", background: selectedWeaponId ? "#dc2626" : "#1e293b",
                   color: "#fff", border: "none", borderRadius: 6, padding: "8px 0",
                   cursor: selectedWeaponId ? "pointer" : "not-allowed", fontSize: 13, fontWeight: 700 }}>

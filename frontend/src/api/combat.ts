@@ -18,6 +18,29 @@ export interface InitiativeEntry { ship_id: number; ship_name: string; side: "a"
 export const rollInitiative = (battleId: number) =>
   api.post<{ initiative_order: InitiativeEntry[] }>(`/combat/battles/${battleId}/initiative`).then(r => r.data);
 
+export interface PointDefenceResult {
+  missiles_in_salvo: number; missiles_destroyed: number; missiles_surviving: number;
+  rolls: { missile: number; roll: number; total: number; destroyed: boolean }[];
+  weapon_pd_dm: number;
+}
+export const pointDefence = (data: {
+  defender_ship_id: number; defence_weapon_id: number;
+  gunner_skill: number; missiles_in_salvo: number;
+}) => api.post<PointDefenceResult>("/combat/missile/point-defence", data).then(r => r.data);
+
+export interface MissileArrivalResult {
+  surviving_missiles: number; hit: boolean; damage: number; critical: boolean;
+  screen_blocked: boolean; attack_roll?: number; total_dm?: number; total?: number;
+  effect?: number; breakdown?: Record<string, number>;
+  critical_details?: { location: string; severity: number; result: string };
+  message?: string;
+}
+export const resolveMissile = (data: {
+  attacker_ship_id: number; target_ship_id: number; weapon_id: number;
+  gunner_skill: number; range_band: string; sand_dm: number;
+  missiles_destroyed: number; missiles_total: number; evasive_target: boolean;
+}) => api.post<MissileArrivalResult>("/combat/missile/resolve", data).then(r => r.data);
+
 export const resolveAttack = (data: {
   battle_id: number;
   attacker_ship_id: number;
