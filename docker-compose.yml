@@ -22,8 +22,8 @@ services:
     environment:
       DATABASE_URL: postgresql+asyncpg://starfire:starfire@db:5432/starfire
       SECRET_KEY: change-me-in-production
-    ports:
-      - "8001:8000"
+    expose:
+      - "8000"
     depends_on:
       db:
         condition: service_healthy
@@ -34,10 +34,7 @@ services:
     build: ./frontend
     restart: unless-stopped
     ports:
-      - "5174:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "8080:80"
     depends_on:
       - backend
 

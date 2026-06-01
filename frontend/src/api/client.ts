@@ -1,7 +1,8 @@
 import axios from "axios";
 
-// In dev, Vite proxies /ships, /combat, /health to the FastAPI backend.
-// In Docker, set VITE_API_URL to the backend service URL.
+// In Docker: nginx serves the frontend and proxies /ships /combat /health to the backend.
+// In dev (npm run dev): vite.config.ts proxy handles it.
+// Either way, relative URLs work — no hardcoded host needed.
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? "",
+  baseURL: "",
 });
