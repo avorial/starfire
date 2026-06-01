@@ -5,7 +5,7 @@ from sqlalchemy.orm import selectinload
 
 from app.database import get_db
 from app.models.combat import Fleet, FleetMember, Battle, BattleRound
-from app.models.ship import Ship, Weapon
+from app.models.ship import Ship, Weapon  # noqa: F401
 from app.schemas.combat import FleetCreate, FleetRead, BattleCreate, BattleRead, AttackAction, ManeuverAction
 from app.services import rules_engine
 
@@ -79,14 +79,20 @@ async def resolve_attack(action: AttackAction, db: AsyncSession = Depends(get_db
     if not target:
         raise HTTPException(status_code=404, detail="Target ship not found")
 
+    # Also fetch attacker ship for sensor DM
+    attacker_result = await db.execute(select(Ship).where(Ship.id == action.attacker_ship_id))
+    attacker = attacker_result.scalar_one_or_none()
+
     result = rules_engine.resolve_attack(
         weapon_type=weapon.weapon_type.value,
         range_band=action.range_band,
         gunner_skill=action.gunner_skill,
         target_hull_tons=target.hull_tons,
-        target_armor=target.armor,
+        target_armor=target.armor_value,
         weapon_damage_dice=weapon.damage_dice,
         weapon_damage_dm=weapon.damage_dm,
+        weapon_damage_multiple=weapon.damage_multiple,
+        sensor_dm=attacker.sensor_dm if attacker else 0,
     )
     return result
 

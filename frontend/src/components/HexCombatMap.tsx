@@ -44,7 +44,7 @@ export function hexDist(aq: number, ar: number, bq: number, br: number) {
 }
 
 // ── Generate large wargame hex grid ───────────────────────────────────────
-const GRID_RADIUS = 14;
+const GRID_RADIUS = 28;
 const GRID_HEXES: { q: number; r: number }[] = [];
 for (let q = -GRID_RADIUS; q <= GRID_RADIUS; q++) {
   const r1 = Math.max(-GRID_RADIUS, -q - GRID_RADIUS);
@@ -163,7 +163,7 @@ export default function HexCombatMap({ ships, onMoveShip, onSelectShip, selected
         transform: `translate(-50%, -50%) translate(${pan.x}px,${pan.y}px) scale(${scale})`,
         transformOrigin: "50% 50%",
       }}>
-        <HexGrid width={2800} height={2800} viewBox="-140 -140 280 280">
+        <HexGrid width={5200} height={5200} viewBox="-260 -260 520 520">
           <Layout size={{ x: 8.5, y: 8.5 }} flat={false} spacing={1.03} origin={{ x: 0, y: 0 }}>
             {GRID_HEXES.map(({ q, r }) => {
               const key = `${q},${r}`;

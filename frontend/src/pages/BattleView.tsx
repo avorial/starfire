@@ -34,6 +34,7 @@ export default function BattleView() {
   const [gunnerSkill, setGunnerSkill] = useState(1);
   const [currentRange] = useState<RangeBand>("short");
   const [lastResult, setLastResult] = useState<AttackResult | null>(null);
+  const [attackError, setAttackError] = useState<string | null>(null);
   const [log, setLog] = useState<string[]>([]);
   const [positions, setPositions] = useState<Record<number, BattleShipState>>({});
   const [panelOpen, setPanelOpen] = useState(true);
@@ -123,6 +124,7 @@ export default function BattleView() {
       const wpn = atk?.weapons.find(w => w.id === selectedWeaponId);
       const line = `R${round}: ${atk?.name} → ${tgt?.name} [${wpn?.name}]: ${result.hit ? `HIT ${result.damage}dmg${result.critical ? " CRIT" : ""}` : "MISS"} (${result.attack_roll}+${result.total_dm}=${result.total})`;
       setLog(l => [line, ...l]);
+      setAttackError(null);
       if (result.hit && selectedTargetId != null) {
         setPositions(p => ({
           ...p,
@@ -133,6 +135,10 @@ export default function BattleView() {
           },
         }));
       }
+    },
+    onError: (err: unknown) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      setAttackError(`Attack failed: ${msg}`);
     },
   });
 
@@ -271,6 +277,11 @@ export default function BattleView() {
                 style={{ ...btnFire, opacity: selectedWeaponId ? 1 : 0.5 }}>
                 🎯 Fire!
               </button>
+              {attackError && (
+                <div style={{ marginTop: 6, fontSize: 11, color: "#f87171", background: "#450a0a", borderRadius: 5, padding: "4px 8px" }}>
+                  {attackError}
+                </div>
+              )}
             </div>
           )}
 

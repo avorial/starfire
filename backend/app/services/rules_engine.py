@@ -1,32 +1,68 @@
 """
 Traveller Mongoose 2e starship combat rules engine.
-Reference: High Guard + Core Rulebook combat chapter.
+Reference: High Guard 2022 + Core Rulebook.
 """
 import random
-from app.models.combat import RangeBand, RANGE_BAND_ORDER, THRUST_TO_CLOSE
+from app.models.combat import RangeBand
 
-# Attack DMs by range band from the combat range table
+# Shorthand
+A  = RangeBand.adjacent
+C  = RangeBand.close
+S  = RangeBand.short
+M  = RangeBand.medium
+L  = RangeBand.long
+VL = RangeBand.very_long
+D  = RangeBand.distant
+
+# Range DMs per weapon type — all High Guard 2022 weapon types covered.
+# Unknown types default to pulse_laser profile.
 WEAPON_RANGE_DMS: dict[str, dict[RangeBand, int]] = {
-    "pulse_laser":    {RangeBand.adjacent: -2, RangeBand.close: 0,  RangeBand.short: 0,  RangeBand.medium: -2, RangeBand.long: -4, RangeBand.very_long: -6, RangeBand.distant: -8},
-    "beam_laser":     {RangeBand.adjacent: -4, RangeBand.close: -2, RangeBand.short: 0,  RangeBand.medium: 0,  RangeBand.long: -2, RangeBand.very_long: -4, RangeBand.distant: -6},
-    "missile_rack":   {RangeBand.adjacent: -6, RangeBand.close: -4, RangeBand.short: -2, RangeBand.medium: 0,  RangeBand.long: 0,  RangeBand.very_long: 0,  RangeBand.distant: 0},
-    "sandcaster":     {RangeBand.adjacent: 0,  RangeBand.close: 0,  RangeBand.short: -4, RangeBand.medium: -8, RangeBand.long: -8, RangeBand.very_long: -8, RangeBand.distant: -8},
-    "particle_beam":  {RangeBand.adjacent: -4, RangeBand.close: -2, RangeBand.short: 0,  RangeBand.medium: 0,  RangeBand.long: 0,  RangeBand.very_long: -2, RangeBand.distant: -4},
-    "meson_gun":      {RangeBand.adjacent: -4, RangeBand.close: -2, RangeBand.short: 0,  RangeBand.medium: 0,  RangeBand.long: 0,  RangeBand.very_long: -2, RangeBand.distant: -4},
-    "fusion_gun":     {RangeBand.adjacent: -2, RangeBand.close: 0,  RangeBand.short: 0,  RangeBand.medium: -2, RangeBand.long: -4, RangeBand.very_long: -6, RangeBand.distant: -8},
-    "repulsor":       {RangeBand.adjacent: 0,  RangeBand.close: -2, RangeBand.short: -4, RangeBand.medium: -8, RangeBand.long: -8, RangeBand.very_long: -8, RangeBand.distant: -8},
+    # ── Turret weapons ────────────────────────────────────────────────────
+    "pulse_laser":         {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "beam_laser":          {A: -4, C: -2, S:  0, M:  0, L: -2, VL: -4, D: -6},
+    "laser_drill":         {A:  0, C: -4, S: -8, M: -8, L: -8, VL: -8, D: -8},
+    "fusion_gun":          {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "particle_beam":       {A: -4, C: -2, S:  0, M:  0, L:  0, VL: -2, D: -4},
+    "plasma_gun":          {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "railgun":             {A: -2, C:  0, S:  0, M: -2, L: -6, VL: -8, D: -8},
+    "missile_rack":        {A: -6, C: -4, S: -2, M:  0, L:  0, VL:  0, D:  0},
+    "sandcaster":          {A:  0, C:  0, S: -4, M: -8, L: -8, VL: -8, D: -8},
+    # ── Barbettes (same range profile, damage x3) ─────────────────────────
+    "beam_laser_barbette": {A: -4, C: -2, S:  0, M:  0, L: -2, VL: -4, D: -6},
+    "pulse_laser_barbette":{A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "particle_barbette":   {A: -4, C: -2, S:  0, M:  0, L:  0, VL: -2, D: -4},
+    "fusion_barbette":     {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "plasma_barbette":     {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "railgun_barbette":    {A: -2, C:  0, S:  0, M: -2, L: -6, VL: -8, D: -8},
+    "missile_barbette":    {A: -6, C: -4, S: -2, M:  0, L:  0, VL:  0, D:  0},
+    "torpedo":             {A: -6, C: -4, S: -2, M:  0, L:  0, VL:  0, D:  0},
+    "ion_cannon":          {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    # ── Bay weapons ───────────────────────────────────────────────────────
+    "missile_bay":         {A: -6, C: -4, S: -2, M:  0, L:  0, VL:  0, D:  0},
+    "torpedo_bay":         {A: -6, C: -4, S: -2, M:  0, L:  0, VL:  0, D:  0},
+    "particle_beam_bay":   {A: -4, C: -2, S:  0, M:  0, L:  0, VL: -2, D: -4},
+    "fusion_gun_bay":      {A: -2, C:  0, S:  0, M: -2, L: -4, VL: -6, D: -8},
+    "meson_gun_bay":       {A: -4, C: -2, S:  0, M:  0, L:  0, VL: -2, D: -4},
+    # ── Spinal mounts ─────────────────────────────────────────────────────
+    "meson_spinal":        {A: -4, C: -2, S:  0, M:  0, L:  0, VL:  0, D:  0},
+    "particle_spinal":     {A: -4, C: -2, S:  0, M:  0, L:  0, VL:  0, D: -2},
+    # ── Screens / defensive ───────────────────────────────────────────────
+    "repulsor":            {A:  0, C: -2, S: -4, M: -8, L: -8, VL: -8, D: -8},
+    "nuclear_damper":      {A:  0, C:  0, S:  0, M:  0, L:  0, VL:  0, D:  0},
+    "meson_screen":        {A:  0, C:  0, S:  0, M:  0, L:  0, VL:  0, D:  0},
+    "black_globe":         {A:  0, C:  0, S:  0, M:  0, L:  0, VL:  0, D:  0},
+    "white_globe":         {A:  0, C:  0, S:  0, M:  0, L:  0, VL:  0, D:  0},
 }
 
-# Hull size thresholds for size DM on attack
+# Bay weapons suffer DM-2 against small craft
+BAY_SMALL_CRAFT_DM = -2
+
+# Hull size DM to hit (larger = easier to hit)
 def ship_size_dm(hull_tons: int) -> int:
-    if hull_tons < 100:
-        return -1
-    if hull_tons < 1000:
-        return 0
-    if hull_tons < 10000:
-        return 1
-    if hull_tons < 100000:
-        return 2
+    if hull_tons < 100:    return -1
+    if hull_tons < 1000:   return  0
+    if hull_tons < 10000:  return  1
+    if hull_tons < 100000: return  2
     return 4
 
 
@@ -46,6 +82,7 @@ def resolve_attack(
     target_armor: int,
     weapon_damage_dice: int,
     weapon_damage_dm: int,
+    weapon_damage_multiple: int = 1,
     evasive_action: bool = False,
     dogfight_dm: int = 0,
     sensor_dm: int = 0,
@@ -55,12 +92,16 @@ def resolve_attack(
     Returns a dict with roll details and damage dealt.
     """
     attack_roll = roll_2d6()
-    range_dm = WEAPON_RANGE_DMS.get(weapon_type, {}).get(range_band, -8)
+
+    # Look up range DM — fall back to pulse_laser if weapon not in table
+    wt = weapon_type if weapon_type in WEAPON_RANGE_DMS else "pulse_laser"
+    range_dm = WEAPON_RANGE_DMS[wt].get(range_band, -8)
     size_dm = ship_size_dm(target_hull_tons)
     evasive_dm = -2 if evasive_action else 0
 
     total_dm = gunner_skill + range_dm + size_dm + evasive_dm + dogfight_dm + sensor_dm
     total = attack_roll + total_dm
+    effect = total - 8
 
     hit = total >= 8
     damage = 0
@@ -68,15 +109,15 @@ def resolve_attack(
 
     if hit:
         raw_damage = roll_d6(weapon_damage_dice) + weapon_damage_dm
+        raw_damage *= weapon_damage_multiple          # barbettes x3, bays x10/20/100
         damage = max(0, raw_damage - target_armor)
-        # Effect >= 6 triggers a critical hit
-        effect = total - 8
         critical = effect >= 6
 
     return {
         "attack_roll": attack_roll,
         "total_dm": total_dm,
         "total": total,
+        "effect": effect,
         "hit": hit,
         "damage": damage,
         "critical": critical,
@@ -89,26 +130,3 @@ def resolve_attack(
             "sensor_dm": sensor_dm,
         },
     }
-
-
-def thrust_to_change_range(current: RangeBand, target: RangeBand) -> int:
-    ci = RANGE_BAND_ORDER.index(current)
-    ti = RANGE_BAND_ORDER.index(target)
-    if ci == ti:
-        return 0
-    # Moving closer: costs are additive for each band crossed
-    cost = 0
-    step = 1 if ti < ci else -1
-    for i in range(ci, ti, step):
-        band = RANGE_BAND_ORDER[i]
-        cost += THRUST_TO_CLOSE[band]
-    return cost
-
-
-CRITICAL_HIT_TABLE = {
-    2: {
-        "Sensors": ["Sensors Suffer DM-2", "Sensor range reduced to Medium Range", "Sensor range reduced to Short Range", "Sensor range reduced to Close Range", "Sensor range reduced to Adj Range", "Sensors disabled"],
-        "Power Plant": ["Thrust -1, Power -10%", "Thrust -2, Power -10%", "Thrust -3, Power -10%", "Thrust 0, Power 0", "Hull Severity +1", "Hull Severity +1"],
-        "Fuel": ["Leak 1D tons/hour", "Leak 1D tons/hour", "Leak 1D tons/hour", "Fuel Tank Destroyed, Hull Severity +1", "Fuel Tank explodes, Hull Severity +1", "Fuel Tank explodes, Hull Severity +1D"],
-    }
-}
