@@ -3,9 +3,8 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchBattle, resolveAttack } from "../api/combat";
 import { fetchShips } from "../api/ships";
-import HexCombatMap, { type HexShip } from "../components/HexCombatMap";
+import HexCombatMap, { type HexShip, hexDist as hexDistance, distToRangeBand } from "../components/HexCombatMap";
 import type { RangeBand, BattleShipState, AttackResult, Ship } from "../types";
-import { RANGE_BANDS } from "../types";
 
 function defaultState(ship: Ship, idx = 0): BattleShipState {
   return {
@@ -33,7 +32,7 @@ export default function BattleView() {
   const [selectedTargetId, setSelectedTargetId] = useState<number | null>(null);
   const [selectedWeaponId, setSelectedWeaponId] = useState<number | null>(null);
   const [gunnerSkill, setGunnerSkill] = useState(1);
-  const [currentRange, setCurrentRange] = useState<RangeBand>("short");
+  const [currentRange] = useState<RangeBand>("short");
   const [lastResult, setLastResult] = useState<AttackResult | null>(null);
   const [log, setLog] = useState<string[]>([]);
   const [positions, setPositions] = useState<Record<number, BattleShipState>>({});
@@ -63,6 +62,15 @@ export default function BattleView() {
     side: idx % 2 === 0 ? "a" : "b",
   }));
 
+  // Auto-calculate range band from hex positions
+  const autoRange: RangeBand = (() => {
+    if (selectedShipId == null || selectedTargetId == null) return currentRange;
+    const aPos = positions[selectedShipId];
+    const tPos = positions[selectedTargetId];
+    if (!aPos || !tPos) return currentRange;
+    return distToRangeBand(hexDistance(aPos.q, aPos.r, tPos.q, tPos.r));
+  })();
+
   function handleSelectShip(shipId: number | null) {
     if (shipId === null) { setSelectedShipId(null); return; }
     if (selectedShipId != null && shipId !== selectedShipId) {
@@ -77,7 +85,7 @@ export default function BattleView() {
   function handleMoveShip(shipId: number, q: number, r: number) {
     setPositions(prev => {
       const cur = prev[shipId] ?? defaultState(allShips.find((s: Ship) => s.id === shipId)!);
-      const dist = hexDist(cur.q, cur.r, q, r);
+      const dist = hexDistance(cur.q, cur.r, q, r);
       return {
         ...prev,
         [shipId]: {
@@ -140,6 +148,7 @@ export default function BattleView() {
       <HexCombatMap
         ships={hexShips}
         selectedShipId={selectedShipId}
+        targetShipId={selectedTargetId}
         onSelectShip={handleSelectShip}
         onMoveShip={handleMoveShip}
       />
@@ -237,12 +246,12 @@ export default function BattleView() {
                   ))}
                 </select>
               </label>
-              <label style={labelStyle}>
+              <div style={{ ...labelStyle, marginBottom: 7 }}>
                 Range Band
-                <select value={currentRange} onChange={e => setCurrentRange(e.target.value as RangeBand)} style={selectStyle}>
-                  {RANGE_BANDS.map(b => <option key={b} value={b}>{b.replace("_", " ")}</option>)}
-                </select>
-              </label>
+                <div style={{ ...selectStyle, color: "#e2e8f0", fontWeight: 600 }}>
+                  {autoRange.replace("_", " ")} (auto from hex distance)
+                </div>
+              </div>
               <label style={labelStyle}>
                 Gunner Skill
                 <input type="number" min={0} max={5} value={gunnerSkill}
@@ -257,7 +266,7 @@ export default function BattleView() {
                   weapon_id: selectedWeaponId!,
                   gunner_skill: gunnerSkill,
                   pilot_skill: 0,
-                  range_band: currentRange,
+                  range_band: autoRange,
                 })}
                 style={{ ...btnFire, opacity: selectedWeaponId ? 1 : 0.5 }}>
                 🎯 Fire!
@@ -305,9 +314,6 @@ export default function BattleView() {
   );
 }
 
-function hexDist(aq: number, ar: number, bq: number, br: number) {
-  return Math.max(Math.abs(aq - bq), Math.abs(ar - br), Math.abs((-aq - ar) - (-bq - br)));
-}
 
 function LoadingScreen() {
   return <div style={{ color: "#94a3b8", padding: 24, position: "fixed", inset: 0, top: 48, background: "#080f1e" }}>Loading battle…</div>;
