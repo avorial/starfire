@@ -127,6 +127,8 @@ export interface BattleShipState {
 }
 
 export interface AttackResult {
-  attack_roll: number; total_dm: number; total: number;
-  hit: boolean; damage: number; critical: boolean; breakdown: Record<string, number>;
+  attack_roll: number; total_dm: number; total: number; effect: number;
+  hit: boolean; damage: number; critical: boolean; screen_blocked: boolean;
+  breakdown: Record<string, number>;
+  critical_details?: { location: string; severity: number; result: string };
 }

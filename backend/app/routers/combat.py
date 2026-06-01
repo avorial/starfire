@@ -6,13 +6,16 @@ from sqlalchemy.orm import selectinload
 from app.database import get_db
 from app.models.combat import Fleet, FleetMember, Battle, BattleRound
 from app.models.ship import Ship, Weapon  # noqa: F401
-from app.schemas.combat import FleetCreate, FleetRead, BattleCreate, BattleRead, AttackAction, ManeuverAction
+from app.schemas.combat import (
+    FleetCreate, FleetRead, BattleCreate, BattleRead,
+    AttackAction, ManeuverAction,
+)
 from app.services import rules_engine
 
 router = APIRouter(prefix="/combat", tags=["combat"])
 
 
-# --- Fleets ---
+# ── Fleets ────────────────────────────────────────────────────────────────
 
 @router.get("/fleets", response_model=list[FleetRead])
 async def list_fleets(db: AsyncSession = Depends(get_db)):
@@ -34,7 +37,7 @@ async def create_fleet(payload: FleetCreate, db: AsyncSession = Depends(get_db))
     return result.scalar_one()
 
 
-# --- Battles ---
+# ── Battles ───────────────────────────────────────────────────────────────
 
 @router.get("/battles", response_model=list[BattleRead])
 async def list_battles(db: AsyncSession = Depends(get_db)):
@@ -48,7 +51,7 @@ async def create_battle(payload: BattleCreate, db: AsyncSession = Depends(get_db
         name=payload.name,
         fleet_a_id=payload.fleet_a_id,
         fleet_b_id=payload.fleet_b_id,
-        state={"range_band": "short", "round": 1, "ships": {}},
+        state={"round": 1, "ships": {}, "initiative_order": []},
     )
     db.add(battle)
     await db.commit()
@@ -65,23 +68,79 @@ async def get_battle(battle_id: int, db: AsyncSession = Depends(get_db)):
     return battle
 
 
-# --- Combat actions ---
+@router.get("/battles/{battle_id}/ships")
+async def get_battle_ships(battle_id: int, db: AsyncSession = Depends(get_db)):
+    """Return ships for both fleets in a battle, tagged with their side."""
+    battle = (await db.execute(select(Battle).where(Battle.id == battle_id))).scalar_one_or_none()
+    if not battle:
+        raise HTTPException(status_code=404, detail="Battle not found")
+
+    async def fleet_ships(fleet_id: int, side: str):
+        members = (await db.execute(
+            select(FleetMember).where(FleetMember.fleet_id == fleet_id)
+        )).scalars().all()
+        ships = []
+        for m in members:
+            ship = (await db.execute(
+                select(Ship).where(Ship.id == m.ship_id).options(selectinload(Ship.weapons))
+            )).scalar_one_or_none()
+            if ship:
+                ships.append({"side": side, "count": m.count, "ship": ship})
+        return ships
+
+    side_a = await fleet_ships(battle.fleet_a_id, "a")
+    side_b = await fleet_ships(battle.fleet_b_id, "b")
+    return {"battle_id": battle_id, "ships": side_a + side_b}
+
+
+# ── Initiative ────────────────────────────────────────────────────────────
+
+@router.post("/battles/{battle_id}/initiative")
+async def roll_initiative(battle_id: int, db: AsyncSession = Depends(get_db)):
+    """Roll initiative for all ships in the battle (2d6 + Tactics)."""
+    result = await db.execute(select(Battle).where(Battle.id == battle_id))
+    battle = result.scalar_one_or_none()
+    if not battle:
+        raise HTTPException(status_code=404, detail="Battle not found")
+
+    ships_result = await get_battle_ships(battle_id, db)
+    rolls = []
+    for entry in ships_result["ships"]:
+        ship = entry["ship"]
+        roll = rules_engine.roll_initiative(tactics_skill=0)
+        rolls.append({
+            "ship_id": ship.id,
+            "ship_name": ship.name,
+            "side": entry["side"],
+            "roll": roll,
+        })
+    rolls.sort(key=lambda x: x["roll"], reverse=True)
+    return {"initiative_order": rolls}
+
+
+# ── Attack ────────────────────────────────────────────────────────────────
 
 @router.post("/attack")
 async def resolve_attack(action: AttackAction, db: AsyncSession = Depends(get_db)):
-    weapon_result = await db.execute(select(Weapon).where(Weapon.id == action.weapon_id))
-    weapon = weapon_result.scalar_one_or_none()
+    weapon = (await db.execute(
+        select(Weapon).where(Weapon.id == action.weapon_id)
+    )).scalar_one_or_none()
     if not weapon:
-        raise HTTPException(status_code=404, detail="Weapon not found")
+        raise HTTPException(status_code=404, detail=f"Weapon id={action.weapon_id} not found")
 
-    target_result = await db.execute(select(Ship).where(Ship.id == action.target_ship_id))
-    target = target_result.scalar_one_or_none()
+    target = (await db.execute(
+        select(Ship).options(selectinload(Ship.weapons)).where(Ship.id == action.target_ship_id)
+    )).scalar_one_or_none()
     if not target:
-        raise HTTPException(status_code=404, detail="Target ship not found")
+        raise HTTPException(status_code=404, detail=f"Target ship id={action.target_ship_id} not found")
 
-    # Also fetch attacker ship for sensor DM
-    attacker_result = await db.execute(select(Ship).where(Ship.id == action.attacker_ship_id))
-    attacker = attacker_result.scalar_one_or_none()
+    attacker = (await db.execute(
+        select(Ship).where(Ship.id == action.attacker_ship_id)
+    )).scalar_one_or_none()
+
+    # Collect target's active screens
+    target_screens = [w.weapon_type.value for w in target.weapons
+                      if w.weapon_type.value in {"nuclear_damper", "meson_screen", "black_globe"}]
 
     result = rules_engine.resolve_attack(
         weapon_type=weapon.weapon_type.value,
@@ -92,15 +151,28 @@ async def resolve_attack(action: AttackAction, db: AsyncSession = Depends(get_db
         weapon_damage_dice=weapon.damage_dice,
         weapon_damage_dm=weapon.damage_dm,
         weapon_damage_multiple=weapon.damage_multiple,
+        evasive_action=action.evasive_target,
+        dogfight_dm=action.dogfight_dm,
         sensor_dm=attacker.sensor_dm if attacker else 0,
+        target_screens=target_screens,
     )
+
+    # Resolve critical hit details if triggered
+    if result["critical"]:
+        result["critical_details"] = rules_engine.resolve_critical(result["effect"])
+
     return result
 
 
 @router.post("/thrust-cost")
 async def calculate_thrust(action: ManeuverAction):
-    cost = rules_engine.thrust_to_change_range(
-        current=action.target_range_band,
-        target=action.target_range_band,
-    )
+    from app.models.combat import RANGE_BAND_ORDER, THRUST_TO_CLOSE
+    src_idx = RANGE_BAND_ORDER.index(action.current_range_band)
+    tgt_idx = RANGE_BAND_ORDER.index(action.target_range_band)
+    if src_idx == tgt_idx:
+        return {"thrust_cost": 0}
+    cost = 0
+    step = 1 if tgt_idx < src_idx else -1
+    for i in range(src_idx, tgt_idx, step):
+        cost += THRUST_TO_CLOSE[RANGE_BAND_ORDER[i]]
     return {"thrust_cost": cost}

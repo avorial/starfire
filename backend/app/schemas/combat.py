@@ -49,8 +49,10 @@ class AttackAction(BaseModel):
     attacker_ship_id: int
     target_ship_id: int
     weapon_id: int
-    gunner_skill: int = 0    # Gunner skill level
-    pilot_skill: int = 0     # attacking pilot skill (for dogfight DM)
+    gunner_skill: int = 0
+    pilot_skill: int = 0
+    dogfight_dm: int = 0
+    evasive_target: bool = False   # target declared evasive action this round
     range_band: RangeBand
 
 
@@ -58,4 +60,5 @@ class ManeuverAction(BaseModel):
     battle_id: int
     ship_id: int
     thrust_spent: int
-    target_range_band: RangeBand  # desired new range band vs primary target
+    current_range_band: RangeBand
+    target_range_band: RangeBand
