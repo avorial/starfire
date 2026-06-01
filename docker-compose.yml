@@ -22,6 +22,7 @@ services:
     environment:
       DATABASE_URL: postgresql+asyncpg://starfire:starfire@db:5432/starfire
       SECRET_KEY: change-me-in-production
+      PYTHONPATH: /app
     expose:
       - "8000"
     depends_on:
