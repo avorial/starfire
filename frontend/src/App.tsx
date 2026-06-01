@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link, NavLink, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ShipList from "./pages/ShipList";
 import ShipBuilder from "./pages/ShipBuilder";
@@ -29,8 +29,7 @@ function Nav() {
 }
 
 function BattleViewWrapper() {
-  const { id } = useParams();
-  return <BattleView battleId={Number(id) || 1} />;
+  return <BattleView />;
 }
 
 export default function App() {
