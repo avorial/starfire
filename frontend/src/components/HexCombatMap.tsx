@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { HexGrid, Layout, Hexagon, Text, GridGenerator } from "react-hexgrid";
+import { useState } from "react";
+import { HexGrid, Layout, Hexagon, Text } from "react-hexgrid";
 import type { Ship, RangeBand, BattleShipState } from "../types";
 import { RANGE_BANDS, RANGE_LABELS } from "../types";
 
@@ -17,16 +17,6 @@ interface Props {
 }
 
 // Range band ring radii — each ring represents a range band
-const RING_RADII: Record<RangeBand, number> = {
-  adjacent: 1,
-  close:    2,
-  short:    3,
-  medium:   4,
-  long:     5,
-  very_long:6,
-  distant:  7,
-};
-
 const BAND_COLORS: Record<RangeBand, string> = {
   adjacent: "#f87171",   // red-400
   close:    "#fb923c",   // orange-400
@@ -64,8 +54,6 @@ function hexesUpToRadius(radius: number) {
   }
   return all;
 }
-
-const CENTER = { q: 0, r: 0 };
 
 export default function HexCombatMap({ ships, selectedShipId, onSelectShip, onMoveShip }: Props) {
   const [moveMode, setMoveMode] = useState<number | null>(null);

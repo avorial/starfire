@@ -102,7 +102,7 @@ export default function BattleView({ battleId }: Props) {
           </label>
           <label style={{ ...labelStyle, flexDirection: "column", gap: 4 }}>
             Range Band
-            <select value={currentRange} style={selectStyle} readOnly>
+            <select value={currentRange} style={selectStyle} onChange={() => {}}>
               {RANGE_BANDS.map(b => <option key={b} value={b}>{b.replace("_", " ")}</option>)}
             </select>
           </label>
