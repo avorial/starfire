@@ -17,6 +17,7 @@ export type WeaponType =
   |"particle_barbette"|"railgun_barbette"|"missile_bay"|"torpedo_bay"
   |"particle_beam_bay"|"fusion_gun_bay"|"meson_gun_bay"
   |"meson_spinal"|"particle_spinal"
+  |"repulsor"
   |"nuclear_damper"|"meson_screen"|"black_globe"|"white_globe";
 
 export type RangeBand = "adjacent"|"close"|"short"|"medium"|"long"|"very_long"|"distant";

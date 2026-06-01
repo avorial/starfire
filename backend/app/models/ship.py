@@ -99,6 +99,8 @@ class WeaponType(str, enum.Enum):
     # Spinal
     meson_spinal = "meson_spinal"
     particle_spinal = "particle_spinal"
+    # Bay screens / defensive
+    repulsor = "repulsor"
     # Screens (defensive)
     nuclear_damper = "nuclear_damper"
     meson_screen = "meson_screen"
