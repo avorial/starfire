@@ -38,7 +38,7 @@ export default function BattleView({ battleId }: Props) {
 
   const hexShips = ships.map((ship, i) => ({
     ship,
-    state: positions[ship.id] ?? { hull_remaining: ship.hull_points, thrust_remaining: ship.thrust, evasive: false, disabled: false, q: i % 2 === 0 ? -3 : 3, r: 0 },
+    state: positions[ship.id] ?? { hull_remaining: ship.hull_points, thrust_remaining: ship.m_drive_rating, evasive: false, disabled: false, q: i % 2 === 0 ? -3 : 3, r: 0 },
     side: (i % 2 === 0 ? "a" : "b") as "a" | "b",
   }));
 
